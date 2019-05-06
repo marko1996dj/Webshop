@@ -1,0 +1,15 @@
+.Checkbox {
+    border-bottom: 1px solid #dedede;
+    padding: 11px;
+    label{
+        display: flex;
+        text-align: left;
+        padding-left: 40px;
+        color: gray;
+        transition-duration: .15s;
+        &:hover{
+            cursor: pointer;
+            color: black
+        }
+    }
+}

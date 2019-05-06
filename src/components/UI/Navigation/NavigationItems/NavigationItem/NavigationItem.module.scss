@@ -1,0 +1,11 @@
+.NavigationItem {
+    a{
+        text-decoration: none;
+        color: gray;
+        transition-duration: .15s;
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+}
