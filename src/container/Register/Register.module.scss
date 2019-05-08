@@ -1,0 +1,26 @@
+.Register {
+    margin: 0 auto;
+    border: 1px solid #dedede;
+    width: 500px;
+    height: 500px;
+    color: #27a645;
+    a{
+        text-decoration: underline;
+        color: #27a645;
+        transition-duration: .15s;
+        &:hover{
+            color: black;
+            cursor: pointer;
+        }
+    }
+    label{
+        margin-left: 100px;
+    }
+    .Button {
+        button {
+            &:hover {
+                background-color: #27a645;
+            }
+        }
+    }
+}

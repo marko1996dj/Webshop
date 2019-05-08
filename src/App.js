@@ -1,62 +1,48 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React, { Component } from "react";
+import { Route, Switch, withRouter } from "react-router-dom";
 
-import fire from './config/config';
-import './App.css';
-import Webshop from './container/Webshop/Webshop';
-import Cart from './container/Cart/Cart';
-import Wishlist from './container/Wishlist/Wishlist';
-import Login from './container/Login/Login';
+import fire from "./config/config";
+import "./App.css";
+import Webshop from "./container/Webshop/Webshop";
+import Cart from "./container/Cart/Cart";
+import Wishlist from "./container/Wishlist/Wishlist";
+import Login from "./container/Login/Login";
+import Register from "./container/Register/Register";
 
 class App extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			user: null,
-		};
-	}
+  state = {
+    user: null,
+    userEmail: null
+  };
 
-	componentDidMount() {
-		this.authListener();
-	}
+  componentDidMount() {
+    this.authListener();
+  }
 
-	authListener() {
-		fire.auth().onAuthStateChanged((user) => {
+  authListener() {
+    fire.auth().onAuthStateChanged(user => {
+      if (user) {
+        this.setState({ user: user });
+        this.setState({ userEmail: user.email });
+      } else {
+        this.setState({ user: null });
+      }
+    });
+  }
 
-
-			if (user) {
-				this.setState({ user });
-				console.log(user)
-				// localStorage.setItem('user', user.uid);
-			} else {
-				this.setState({ user: null });
-				console.log(user)
-				// localStorage.removeItem('user');
-			}
-		});
-	}
-
-	render() {
-		let app = null;
-		if (this.state.user) {
-			app = <p>you are logged in!</p>
-			console.log("logged in")
-		}else {
-			app = <Login />
-			console.log("not logged in")
-		}
-
-		return <div className="App">{app}</div>;
-	}
+  render() {
+    console.log(this.state.user);
+    return (
+      <Switch>
+        <Route path="/" exact component={Webshop} />
+        <Route path="/webshop" component={Webshop} />
+        <Route path="/cart" component={Cart} />
+        <Route path="/wishlist" component={Wishlist} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" render={() => <Login />} />
+      </Switch>
+    );
+  }
 }
 
-export default App;
-
-
-{/* <Switch>
-<Route path="/" exact component={Webshop} />
-<Route path="/webshop" component={Webshop} />
-<Route path="/cart" component={Cart} />
-<Route path="/wishlist" component={Wishlist} />
-<Route path="/login-register" component={Login} />
-</Switch> */}
+export default withRouter(App);
