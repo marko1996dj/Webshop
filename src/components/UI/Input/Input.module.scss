@@ -1,15 +1,12 @@
 .InputField {
     width: 100%;
-    padding: 10px;
 }
-
 
 .Label {
     font-weight: bold;
     display: block;
     margin-bottom: 10px;
 }
-
 
 .InputElement {
     outline: none;
@@ -18,8 +15,8 @@
     padding: 6px 10px;
     display: block;
     width: 60%;
-    margin: 0 auto;
-    border-radius: 15px;
+    margin: 0 auto 30px auto;
+    border-radius: 5px;
 }
 
 .InputElement:focus {

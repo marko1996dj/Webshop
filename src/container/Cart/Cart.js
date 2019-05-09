@@ -6,6 +6,7 @@ class Cart extends Component {
 		return (
 			<React.Fragment>
 				<Layout />
+				<p>This is your Cart...</p>
 			</React.Fragment>
 		);
 	}

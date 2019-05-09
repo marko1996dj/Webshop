@@ -7,6 +7,7 @@ class Wishlist extends Component {
 		return (
 			<React.Fragment>
 				<Layout />
+				<p>This is your Wishlist...</p>
 			</React.Fragment>
 		);
 	}
