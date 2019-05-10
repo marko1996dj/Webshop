@@ -16,7 +16,8 @@ class Login extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			wrongPasswordCounter: 0
+			wrongPasswordCounter: 0,
+			error: ''
 		};
 	}
 
@@ -30,8 +31,8 @@ class Login extends Component {
 				alert('You have successfully logged in!');
 			})
 			.catch((error) => {
-				console.log(error);
-				alert(error);
+				let errorMessage = error.message;
+				this.setState({ error: errorMessage });
 			});
 	}
 
@@ -40,6 +41,17 @@ class Login extends Component {
 	}
 
 	render() {
+		let errorStyle = null;
+		if (this.state.error) {
+			errorStyle = {
+				color: 'red',
+				marginTop: '-22px',
+				marginBottom: '10px',
+				marginLeft: '100px',
+				fontSize: '.7em'
+			};
+		}
+
 		return (
 			<React.Fragment>
 				<Layout user={this.state.user} />
@@ -62,6 +74,7 @@ class Login extends Component {
 						placeholder="Enter password"
 						autoComplete="on"
 					/>
+					<p style={errorStyle}>{this.state.error}</p>
 					<div className={classes.Button}>
 						<Button onClick={this.login}>Log In</Button>
 					</div>

@@ -15,31 +15,33 @@ class Register extends Component {
 		this.state = {
 			email: '',
 			password: '',
-			verifyPassword: ''
+			verifyPassword: '',
+			error: '',
 		};
 	}
 
-  signUp(e) {
+	signUp(e) {
 		e.preventDefault();
-    let password = this.state.password;
-    let verifyPassword = this.state.verifyPassword;
-    if (password === verifyPassword){
-      fire
-			.auth()
-			.createUserWithEmailAndPassword(this.state.email, this.state.verifyPassword)
-			.then((u) => {
-				this.props.history.push('/');
-				alert('You have successfully created account and are now signed in!');
-			})
-			.catch(function(error) {
-				// Handle Errors here.
-				var errorMessage = error.message;
-				alert(errorMessage);
-				// ...
-			});
-    }else{
-      alert("Passwords do not match!");
-    }
+		let password = this.state.password;
+		let verifyPassword = this.state.verifyPassword;
+		if (password === verifyPassword) {
+			fire
+				.auth()
+				.createUserWithEmailAndPassword(this.state.email, this.state.verifyPassword)
+				.then((u) => {
+					this.props.history.push('/');
+					alert('You have successfully created account and are now signed in!');
+				})
+				.catch((error) => {
+					let errorMessage = error.message;
+					if (this.state.email === '' || this.state.verifyPassword === '') {
+						errorMessage = 'Please fill up all the fields.';
+					}
+					this.setState({ error: errorMessage });
+				});
+		} else {
+			this.setState({ error: 'Passwords do not match!' });
+		}
 	}
 
 	handleChange(e) {
@@ -47,11 +49,23 @@ class Register extends Component {
 	}
 
 	render() {
+		
+		let errorStyle = null;
+		if (this.state.error) {
+			errorStyle = {
+				color: 'red',
+				marginTop: '-22px',
+				marginBottom: '10px',
+				marginLeft: '100px',
+				fontSize: '.7em'
+			};
+		}
+
 		return (
 			<React.Fragment>
 				<Layout />
 				<form className={classes.Register}>
-        <h3>Register your account here.</h3>
+					<h3>Register your account here.</h3>
 					<label className={classes.Label}>E-mail address</label>
 					<Input
 						value={this.state.email}
@@ -69,7 +83,7 @@ class Register extends Component {
 						placeholder="Enter password"
 						autoComplete="on"
 					/>
-          <label className={classes.Label}>Verify Password</label>
+					<label className={classes.Label}>Verify Password</label>
 					<Input
 						value={this.state.verifyPassword}
 						onChange={this.handleChange}
@@ -78,10 +92,11 @@ class Register extends Component {
 						placeholder="Verify Password"
 						autoComplete="on"
 					/>
+					<p style={errorStyle}>{this.state.error}</p>
 					<div className={classes.Button}>
 						<Button onClick={this.signUp}>Register</Button>
 					</div>
-          <a href="/login">Already have an account?</a>
+					<a href="/login">Already have an account?</a>
 				</form>
 			</React.Fragment>
 		);

@@ -26,7 +26,10 @@
 		button {
 			&:hover {
 				background-color: #27a645;
-			}
+            }
+            &:active{
+                background-color: darken(#27a645, 10%);
+            }
 		}
     }
     a{

@@ -17,11 +17,16 @@
 		margin-left: 100px;
 	}
 	.Button {
+
         text-align: center;
 		button {
+			margin-top: 50px;
             width: 200px;
 			&:hover {
 				background-color: #4267b2;
+			}
+			&:active {
+				background-color: darken(#4267b2, 10%);
 			}
 		}
 	}

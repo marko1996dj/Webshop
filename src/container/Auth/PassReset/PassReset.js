@@ -10,50 +10,66 @@ import Button from '../../../components/UI/Button/GeneralButton/Button';
 
 
 class PassReset extends Component {
+	constructor(props) {
+		super(props);
+		this.handleChange = this.handleChange.bind(this);
+		this.passReset = this.passReset.bind(this);
+		this.state = {
+			email: '',
+			error: ''
+		};
+	}
 
-    constructor(props){
-        super(props);
-        this.handleChange = this.handleChange.bind(this);
-        this.passReset = this.passReset.bind(this);
-        this.state = {
-            email: '',
-        }
-    }
+	handleChange(e) {
+		this.setState({ [e.target.name]: e.target.value });
+	}
 
+	passReset(e) {
+		e.preventDefault();
+		fire
+			.auth()
+			.sendPasswordResetEmail(this.state.email)
+			.then((u) => {
+				alert('An email has been sent to your email address with further instructions');
+			})
+			.catch((error) => {
+				this.setState({ error: 'There is no user associated with this email address' });
+			});
+	}
 
-    handleChange(e) {
-        this.setState({ [e.target.name]: e.target.value });
-    }
+	render() {
+		let errorStyle = null;
+		if (this.state.error) {
+			errorStyle = {
+				color: 'red',
+				marginTop: '-22px',
+				marginBottom: '10px',
+				marginLeft: '100px',
+				fontSize: '.7em'
+			};
+		}
 
-    passReset(e) {
-        e.preventDefault();
-        fire.auth().sendPasswordResetEmail(this.state.email)
-    }
-
-    render(){
-
-
-
-        return(
-            <React.Fragment>
-            <Layout user={this.state.user} />
-            <form className={classes.PassReset}>
-                <h3>Reset password.</h3>
-                <label className={classes.Label}>E-mail address</label>
-                <Input
-                    value={this.state.email}
-                    onChange={this.handleChange}
-                    type="email"
-                    name="email"
-                    placeholder="Enter e-mail"
-                />
-                <div className={classes.Button}>
-                    <Button onClick={this.passReset}>Reset password</Button>
-                </div>
-            </form>
-        </React.Fragment>
-        );
-    }
+		return (
+			<React.Fragment>
+				<Layout user={this.state.user} />
+				<form className={classes.PassReset}>
+					<h3>Reset password.</h3>
+					<label className={classes.Label}>E-mail address</label>
+					<Input
+						value={this.state.email}
+						onChange={this.handleChange}
+						type="email"
+						name="email"
+						placeholder="Enter e-mail"
+					/>
+					<p style={errorStyle}>{this.state.error}</p>
+					<div className={classes.Button}>
+						<Button onClick={this.passReset}>Reset password</Button>
+					</div>
+				</form>
+			</React.Fragment>
+		);
+	}
 }
 
 export default withRouter(PassReset);
