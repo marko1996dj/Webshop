@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import Layout from "../../components/Layout/Layout";
 import CheckboxList from "../../components/CheckboxList/CheckboxList";
-import StoreItems from "../../components/StoreItems/StoreItems";
+import StoreItems from "../StoreItems/StoreItems";
 
 import classes from "./Webshop.module.scss";
 
