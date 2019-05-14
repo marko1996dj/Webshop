@@ -1,39 +1,39 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
+import * as actionType from '../../../store/action';
 
 import classes from './StoreItem.module.scss';
 
 class StoreItem extends Component {
 	state = {
 		cartItems: [],
-		wishListItems: []
+		wishlistItems: []
 	};
 
 	addToCart = () => {
-		let cartItems = [ ...this.state.cartItems ];
-		let cartItem = {
-			brand: this.props.brand,
-			description: this.props.description,
-			price: this.props.price
-		};
-		cartItems.push(cartItem);
-		this.setState({ cartItems: cartItems });
-		console.log(this.state.cartItems);
-	};
-
-	addToWishlist = () => {
-		let wishListItems = [ ...this.state.wishListItems ];
-		let wishListItem = {
+		const cartItem = {
 			brand: this.props.brand,
 			description: this.props.description,
 			price: this.props.price,
+			imgUrl: this.props.imgUrl,
+			id: this.props.id
 		}
-		wishListItems.push(wishListItem);
-		this.setState({wishListItems: wishListItems});
-		console.log(this.state.wishListItems);
-	};
+		this.props.addToCart(cartItem);
+	}
+
+	addToWishlist = () => {
+		const wishlistItem = {
+			brand: this.props.brand,
+			description: this.props.description,
+			price: this.props.price,
+			imgUrl: this.props.imgUrl,
+			key: this.props.key
+		}
+		this.props.addToWishlist(wishlistItem);
+	}
 
 
 	render() {
@@ -69,4 +69,12 @@ class StoreItem extends Component {
 	}
 }
 
-export default StoreItem;
+
+const mapDispatchToProps = dispatch => {
+	return {
+		addToCart: (cartItem) => dispatch({type: actionType.ADD_TO_CART, cartItem: cartItem}),
+		addToWishlist: (wishlistItem) => dispatch({type: actionType.ADD_TO_WISHLIST, wishlistItem: wishlistItem})
+	}
+}
+
+export default connect(null, mapDispatchToProps)(StoreItem);
