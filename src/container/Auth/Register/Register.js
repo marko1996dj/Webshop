@@ -3,9 +3,9 @@ import React, { Component } from 'react';
 import classes from './Register.module.scss';
 
 import Input from '../../../components/UI/Input/Input';
-import Layout from '../../../components/Layout/Layout';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
 import fire from '../../../config/config';
+import NavigationItems from '../../../components/UI/Navigation/NavigationItems/NavigationItems';
 
 class Register extends Component {
 	constructor(props) {
@@ -22,48 +22,45 @@ class Register extends Component {
 
 	signUp(e) {
 		e.preventDefault();
+		let email = this.state.email;
 		let password = this.state.password;
 		let verifyPassword = this.state.verifyPassword;
-		if (password === verifyPassword) {
-			fire
-				.auth()
-				.createUserWithEmailAndPassword(this.state.email, this.state.verifyPassword)
-				.then((u) => {
-					this.props.history.push('/');
-					alert('You have successfully created account and are now signed in!');
-				})
-				.catch((error) => {
-					let errorMessage = error.message;
-					if (this.state.email === '' || this.state.verifyPassword === '') {
-						errorMessage = 'Please fill up all the fields.';
-					}
-					this.setState({ error: errorMessage });
-				});
-		} else {
-			this.setState({ error: 'Passwords do not match!' });
+			if (password === verifyPassword) {
+				fire
+					.auth()
+					.createUserWithEmailAndPassword(email, verifyPassword)
+					.then((u) => {
+						this.props.history.push('/');
+						alert('You have successfully created account and are now signed in!');
+					})
+					.catch((error) => {
+						let errorMessage = error.message;
+						this.setState({ error: errorMessage });
+					});
+			} else {
+				this.setState({ error: 'Passwords do not match!' });
+			}
 		}
-	}
 
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
 	render() {
-		
 		let errorStyle = null;
 		if (this.state.error) {
 			errorStyle = {
 				color: 'red',
 				marginTop: '-22px',
 				marginBottom: '10px',
-				marginLeft: '100px',
-				fontSize: '.7em'
+				fontSize: '.7em',
+				textAlign: 'center'
 			};
 		}
 
 		return (
 			<React.Fragment>
-				<Layout />
+				<NavigationItems />
 				<form className={classes.Register}>
 					<h3>Register your account here.</h3>
 					<label className={classes.Label}>E-mail address</label>
@@ -72,7 +69,7 @@ class Register extends Component {
 						onChange={this.handleChange}
 						type="email"
 						name="email"
-						placeholder="Enter e-mail"
+						placeholder="Johnsmith@example.com"
 					/>
 					<label className={classes.Label}>Password</label>
 					<Input
@@ -80,7 +77,7 @@ class Register extends Component {
 						onChange={this.handleChange}
 						type="password"
 						name="password"
-						placeholder="Enter password"
+						placeholder="Minimum 6 characters"
 						autoComplete="on"
 					/>
 					<label className={classes.Label}>Verify Password</label>
@@ -89,7 +86,7 @@ class Register extends Component {
 						onChange={this.handleChange}
 						type="password"
 						name="verifyPassword"
-						placeholder="Verify Password"
+						placeholder="Repeat password"
 						autoComplete="on"
 					/>
 					<p style={errorStyle}>{this.state.error}</p>

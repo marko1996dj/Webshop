@@ -1,10 +1,11 @@
 import firebase from 'firebase/app';
+import 'firebase/database';
 import 'firebase/auth';
 
 var firebaseConfig = {
 	apiKey: 'AIzaSyBRDiKVc0xqKUNQtnGo-DTWOupsNnhH20w',
 	authDomain: 'webshop-9a548.firebaseapp.com',
-	databaseURL: 'https://webshop-9a548.firebaseio.com',
+	databaseURL: 'https://webshop-9a548.firebaseio.com/',
 	projectId: 'webshop-9a548',
 	storageBucket: 'webshop-9a548.appspot.com',
 	messagingSenderId: '83664322465',

@@ -14,7 +14,7 @@ class StoreItems extends Component {
 		itemsPerPage: 6
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		axios.get('https://webshop-9a548.firebaseio.com/item.json').then((response) => {
 			this.setState({ items: response.data });
 			this.setState({ loading: false });
@@ -22,6 +22,7 @@ class StoreItems extends Component {
 	}
 
 	render() {
+		console.log('asd')
 		let items = this.state.items;
 		let storeItem;
 		let shoes;

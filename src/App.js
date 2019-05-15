@@ -9,6 +9,8 @@ import Wishlist from './container/Wishlist/Wishlist';
 import Login from './container/Auth/Login/Login';
 import Register from './container/Auth/Register/Register';
 import PassReset from './container/Auth/PassReset/PassReset';
+import User from './container/User/User';
+import UserProfile from './container/UserProfile/UserProfile';
 
 class App extends Component {
 	state = {
@@ -40,6 +42,8 @@ class App extends Component {
 				<Route path="/wishlist" component={Wishlist} />
 				<Route path="/register" component={Register} />
 				<Route path="/password-reset" component={PassReset}/>
+				<Route path="/user" exact component={User} />
+				<Route path="/user/user-profile" component={UserProfile} />
 				<Route path="/login" render={() => <Login />} />
 			</Switch>
 		);

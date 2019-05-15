@@ -4,9 +4,9 @@ import { withRouter } from 'react-router-dom';
 import classes from './Login.module.scss';
 
 import Input from '../../../components/UI/Input/Input';
-import Layout from '../../../components/Layout/Layout';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
 import fire from '../../../config/config';
+import NavigationItems from '../../../components/UI/Navigation/NavigationItems/NavigationItems';
 
 class Login extends Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class Login extends Component {
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then((u) => {
-				this.props.history.push('/webshop');
+				this.props.history.push('/user');
 				alert('You have successfully logged in!');
 			})
 			.catch((error) => {
@@ -54,7 +54,7 @@ class Login extends Component {
 
 		return (
 			<React.Fragment>
-				<Layout user={this.state.user} />
+				<NavigationItems />
 				<form className={classes.Login}>
 					<h3>Login to your account.</h3>
 					<label className={classes.Label}>E-mail address</label>

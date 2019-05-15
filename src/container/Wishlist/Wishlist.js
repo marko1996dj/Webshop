@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 
 import classes from './Wishlist.module.scss';
 
-import Layout from '../../components/Layout/Layout';
+import NavigationItems from '../../components/UI/Navigation/NavigationItems/NavigationItems';
 import StoreItem from '../../components/UI/StoreItem/StoreItem';
 
 class Wishlist extends Component {
 	render() {
-		console.log(this.props.wishlistItems);
-
 		let storeItem = this.props.wishlistItems.map((wishlistItem) => (
 			<StoreItem
 				imgUrl={wishlistItem.imgUrl}
@@ -22,7 +20,7 @@ class Wishlist extends Component {
 
 		return (
 			<React.Fragment>
-				<Layout />
+				<NavigationItems />
 				<div className={classes.WishlistItems}>{storeItem}</div>
 			</React.Fragment>
 		);
