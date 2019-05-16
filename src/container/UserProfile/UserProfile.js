@@ -34,6 +34,7 @@ class UserProfile extends Component {
 	};
 
 	render() {
+		console.log('fuck');
 		let uidInfo;
 		if (this.state.uidInfo) {
 			uidInfo = (
@@ -70,6 +71,20 @@ class UserProfile extends Component {
 						<div className={classes.Button}>
 							<Button onClick={this.editProfileHandler}>Edit profile</Button>
 						</div>
+					</div>
+				</div>
+			);
+		} else if (fire.auth().currentUser) {
+			uidInfo = (
+				<div className={classes.UserProfile}>
+					<div className={classes.Heading}>
+						<h1>User profile</h1>
+					</div>
+					<div className={classes.Form}>
+						<h3>Please edit your profile</h3>
+					</div>
+					<div className={classes.Button}>
+						<Button onClick={this.editProfileHandler}>Edit profile</Button>
 					</div>
 				</div>
 			);
