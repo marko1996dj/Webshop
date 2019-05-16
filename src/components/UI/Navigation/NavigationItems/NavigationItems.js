@@ -9,9 +9,10 @@ import classes from './NavigationItems.module.scss';
 class NavigationItems extends Component {
 	render() {
 		let link = <p>Login/Register</p>;
-
+		let userProfile;
 		if (fire.auth().currentUser !== null) {
 			link = <Logout />;
+			userProfile = 'User Profile';
 		}
 
 		return (
@@ -19,7 +20,8 @@ class NavigationItems extends Component {
 				<NavigationItem link="/webshop">Webshop</NavigationItem>
 				<NavigationItem link="/cart">Cart</NavigationItem>
 				<NavigationItem link="/wishlist">Wishlist</NavigationItem>
-				<NavigationItem link="/register">{link}</NavigationItem>
+				<NavigationItem link="/user-profile">{userProfile}</NavigationItem>
+				<NavigationItem link="/login">{link}</NavigationItem>
 			</ul>
 		);
 	}

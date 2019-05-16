@@ -5,7 +5,6 @@ import classes from './Register.module.scss';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
 import fire from '../../../config/config';
-import NavigationItems from '../../../components/UI/Navigation/NavigationItems/NavigationItems';
 
 class Register extends Component {
 	constructor(props) {
@@ -16,7 +15,7 @@ class Register extends Component {
 			email: '',
 			password: '',
 			verifyPassword: '',
-			error: '',
+			error: ''
 		};
 	}
 
@@ -25,22 +24,21 @@ class Register extends Component {
 		let email = this.state.email;
 		let password = this.state.password;
 		let verifyPassword = this.state.verifyPassword;
-			if (password === verifyPassword) {
-				fire
-					.auth()
-					.createUserWithEmailAndPassword(email, verifyPassword)
-					.then((u) => {
-						this.props.history.push('/');
-						alert('You have successfully created account and are now signed in!');
-					})
-					.catch((error) => {
-						let errorMessage = error.message;
-						this.setState({ error: errorMessage });
-					});
-			} else {
-				this.setState({ error: 'Passwords do not match!' });
-			}
+		if (password === verifyPassword) {
+			fire
+				.auth()
+				.createUserWithEmailAndPassword(email, verifyPassword)
+				.then((u) => {
+					this.props.history.push('/edit-user');
+				})
+				.catch((error) => {
+					let errorMessage = error.message;
+					this.setState({ error: errorMessage });
+				});
+		} else {
+			this.setState({ error: 'Passwords do not match!' });
 		}
+	}
 
 	handleChange(e) {
 		this.setState({ [e.target.name]: e.target.value });
@@ -60,7 +58,6 @@ class Register extends Component {
 
 		return (
 			<React.Fragment>
-				<NavigationItems />
 				<form className={classes.Register}>
 					<h3>Register your account here.</h3>
 					<label className={classes.Label}>E-mail address</label>

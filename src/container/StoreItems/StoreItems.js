@@ -22,7 +22,6 @@ class StoreItems extends Component {
 	}
 
 	render() {
-		console.log('asd')
 		let items = this.state.items;
 		let storeItem;
 		let shoes;
@@ -47,7 +46,11 @@ class StoreItems extends Component {
 			underwear = this.props.itemType[8];
 		}
 		if (this.state.loading) {
-			storeItem = <Spinner />;
+			storeItem = (
+				<div className={classes.Spinner}>
+					<Spinner />
+				</div>
+			);
 		} else {
 			let filteredItems = items.filter(
 				(items) =>

@@ -17,7 +17,6 @@ class Logout extends Component {
 			.signOut()
 			.then((u) => {
 				this.props.history.push('/login');
-				alert('You have succesfully logged out!');
 			})
 			.catch((error) => {
 				console.log(error);

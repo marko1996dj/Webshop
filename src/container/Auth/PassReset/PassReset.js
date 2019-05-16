@@ -6,8 +6,6 @@ import classes from './PassReset.module.scss';
 import fire from '../../../config/config';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
-import NavigationItems from '../../../components/UI/Navigation/NavigationItems/NavigationItems';
-
 
 class PassReset extends Component {
 	constructor(props) {
@@ -31,6 +29,7 @@ class PassReset extends Component {
 			.sendPasswordResetEmail(this.state.email)
 			.then((u) => {
 				alert('An email has been sent to your email address with further instructions');
+				this.props.history.push('/login');
 			})
 			.catch((error) => {
 				this.setState({ error: 'There is no user associated with this email address' });
@@ -51,7 +50,6 @@ class PassReset extends Component {
 
 		return (
 			<React.Fragment>
-				<NavigationItems />
 				<form className={classes.PassReset}>
 					<h3>Reset password.</h3>
 					<label className={classes.Label}>E-mail address</label>

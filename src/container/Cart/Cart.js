@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import classes from './Cart.module.scss';
 
-import Layout from '../../components/Layout/Layout';
 import StoreItem from '../../components/UI/StoreItem/StoreItem';
 
 class Cart extends Component {
@@ -22,7 +21,6 @@ class Cart extends Component {
 
 		return (
 			<React.Fragment>
-				<Layout />
 				<div className={classes.CartItems}>{storeItem}</div>
 			</React.Fragment>
 		);

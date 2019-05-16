@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 
 import classes from './Wishlist.module.scss';
 
-import NavigationItems from '../../components/UI/Navigation/NavigationItems/NavigationItems';
 import StoreItem from '../../components/UI/StoreItem/StoreItem';
 
 class Wishlist extends Component {
@@ -20,7 +19,6 @@ class Wishlist extends Component {
 
 		return (
 			<React.Fragment>
-				<NavigationItems />
 				<div className={classes.WishlistItems}>{storeItem}</div>
 			</React.Fragment>
 		);

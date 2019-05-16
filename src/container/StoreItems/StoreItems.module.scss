@@ -1,4 +1,7 @@
 .StoreItems {
-    display: flex;
-    flex-wrap: wrap;
+	display: flex;
+	flex-wrap: wrap;
+	.Spinner {
+		margin: 160px 0 0 300px;
+	}
 }
