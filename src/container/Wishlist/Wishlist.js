@@ -1,21 +1,54 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import classes from './Wishlist.module.scss';
 
 import StoreItem from '../../components/UI/StoreItem/StoreItem';
+import axios from '../../axios-orders';
+import fire from '../../config/config';
 
 class Wishlist extends Component {
+	state = {
+		wishlistItems: ''
+	};
+
+	componentDidMount() {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/wishlistItems.json')
+					.then((response) => {
+						this.setState({ wishlistItems: response.data });
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
+		});
+	}
+
+	componentWillUnmount() {
+		let unsubscribe = fire.auth().onAuthStateChanged((user) => {
+			
+		})
+		unsubscribe();
+	}
+
 	render() {
-		let storeItem = this.props.wishlistItems.map((wishlistItem) => (
-			<StoreItem
-				imgUrl={wishlistItem.imgUrl}
-				key={wishlistItem.imgUrl}
-				brand={wishlistItem.brand}
-				description={wishlistItem.description}
-				price={wishlistItem.price}
-			/>
-		));
+		let storeItem;
+
+		if (this.state.wishlistItems) {
+			const wishlistItems = Object.values(this.state.wishlistItems);
+
+			storeItem = wishlistItems.map((cartItem) => (
+				<StoreItem
+					imgUrl={cartItem.imgUrl}
+					key={cartItem.imgUrl}
+					brand={cartItem.brand}
+					description={cartItem.description}
+					price={cartItem.price}
+				/>
+			));
+		}
 
 		return (
 			<React.Fragment>
@@ -25,10 +58,4 @@ class Wishlist extends Component {
 	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		wishlistItems: state.wishlistItems
-	};
-};
-
-export default connect(mapStateToProps, null)(Wishlist);
+export default Wishlist;

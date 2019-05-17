@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
-import * as actionType from '../../../store/action';
+import fire from '../../../config/config';
 
 import classes from './StoreItem.module.scss';
 
@@ -14,39 +13,52 @@ class StoreItem extends Component {
 	};
 
 	addToCart = () => {
-		const cartItem = {
-			brand: this.props.brand,
-			description: this.props.description,
-			price: this.props.price,
-			imgUrl: this.props.imgUrl,
-			id: this.props.id
-		}
-		this.props.addToCart(cartItem);
-	}
+		let userId = fire.auth().currentUser.uid;
+		fire
+			.database()
+			.ref('users/' + userId + '/cartItems')
+			.push({
+				brand: this.props.brand,
+				description: this.props.description,
+				price: this.props.price,
+				imgUrl: this.props.imgUrl
+			})
+			.then((u) => {
+				alert('Item added to cart');
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
 
 	addToWishlist = () => {
-		const wishlistItem = {
-			brand: this.props.brand,
-			description: this.props.description,
-			price: this.props.price,
-			imgUrl: this.props.imgUrl,
-			key: this.props.key
-		}
-		this.props.addToWishlist(wishlistItem);
-	}
-
+		let userId = fire.auth().currentUser.uid;
+		fire
+			.database()
+			.ref('users/' + userId + '/wishlistItems')
+			.push({
+				brand: this.props.brand,
+				description: this.props.description,
+				price: this.props.price,
+				imgUrl: this.props.imgUrl
+			})
+			.then((u) => {
+				alert('Item added to wishlist');
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+	};
 
 	render() {
-
 		const style = {
-			backgroundImage: "url(" + this.props.imgUrl + ")",
-			backgroundSize: "cover"
-		}
+			backgroundImage: 'url(' + this.props.imgUrl + ')',
+			backgroundSize: 'cover'
+		};
 
 		return (
 			<div className={classes.StoreItem}>
-				<div style={style} className={classes.Image}>
-				</div>
+				<div style={style} className={classes.Image} />
 				<div className={classes.Name}>
 					<h3>{this.props.brand}</h3>
 				</div>
@@ -69,12 +81,4 @@ class StoreItem extends Component {
 	}
 }
 
-
-const mapDispatchToProps = dispatch => {
-	return {
-		addToCart: (cartItem) => dispatch({type: actionType.ADD_TO_CART, cartItem: cartItem}),
-		addToWishlist: (wishlistItem) => dispatch({type: actionType.ADD_TO_WISHLIST, wishlistItem: wishlistItem})
-	}
-}
-
-export default connect(null, mapDispatchToProps)(StoreItem);
+export default StoreItem;

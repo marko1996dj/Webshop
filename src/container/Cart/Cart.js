@@ -1,23 +1,51 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 
 import classes from './Cart.module.scss';
 
 import StoreItem from '../../components/UI/StoreItem/StoreItem';
+import axios from '../../axios-orders';
+import fire from '../../config/config';
 
 class Cart extends Component {
-	render() {
-		console.log(this.props.cartItems);
+	state = {
+		cartItems: '',
+		isLoggedIn: false,
+		didMount: false
+	};
 
-		let storeItem = this.props.cartItems.map((cartItem) => (
-			<StoreItem
-				imgUrl={cartItem.imgUrl}
-				key={cartItem.imgUrl}
-				brand={cartItem.brand}
-				description={cartItem.description}
-				price={cartItem.price}
-			/>
-		));
+	componentDidMount() {
+		this.ref = fire.auth()
+		this.ref.onAuthStateChanged((user) => {
+			this.setState({ isLoggedIn: true });
+			if (user) {
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/cartItems.json')
+					.then((response) => {
+						this.setState({ cartItems: response.data });
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
+		});
+	}
+
+	render() {
+		let storeItem;
+
+		if (this.state.cartItems) {
+			const cartItems = Object.values(this.state.cartItems);
+
+			storeItem = cartItems.map((cartItem) => (
+				<StoreItem
+					imgUrl={cartItem.imgUrl}
+					key={cartItem.imgUrl}
+					brand={cartItem.brand}
+					description={cartItem.description}
+					price={cartItem.price}
+				/>
+			));
+		}
 
 		return (
 			<React.Fragment>
@@ -25,12 +53,9 @@ class Cart extends Component {
 			</React.Fragment>
 		);
 	}
+	componentWillUnmount() {
+		window.removeEventListener('unsubscribe', this.ref);
+	}
 }
 
-const mapStateToProps = (state) => {
-	return {
-		cartItems: state.cartItems
-	};
-};
-
-export default connect(mapStateToProps, null)(Cart);
+export default Cart;

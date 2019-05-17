@@ -23,16 +23,7 @@ class StoreItems extends Component {
 
 	render() {
 		let items = this.state.items;
-		let storeItem;
-		let shoes;
-		let socks;
-		let hoodies;
-		let shorts;
-		let tShirt;
-		let shirts;
-		let jackets;
-		let jeans;
-		let underwear;
+		let storeItem, shoes, socks, hoodies, shorts, tShirt, shirts, jackets, jeans, underwear;
 
 		if (this.props.itemType) {
 			shoes = this.props.itemType[0];
@@ -51,7 +42,7 @@ class StoreItems extends Component {
 					<Spinner />
 				</div>
 			);
-		} else {
+		} else if (this.props.itemType) {
 			let filteredItems = items.filter(
 				(items) =>
 					items.type === shoes ||
@@ -65,6 +56,16 @@ class StoreItems extends Component {
 					items.type === underwear
 			);
 			storeItem = filteredItems.map((filteredItem) => (
+				<StoreItem
+					imgUrl={filteredItem.imgUrl}
+					key={filteredItem.id}
+					brand={filteredItem.brand}
+					description={filteredItem.description}
+					price={filteredItem.price}
+				/>
+			));
+		} else {
+			storeItem = this.state.items.map((filteredItem) => (
 				<StoreItem
 					imgUrl={filteredItem.imgUrl}
 					key={filteredItem.id}

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 
 import classes from './UserProfile.module.scss';
 
@@ -7,10 +7,10 @@ import fire from '../../config/config';
 import axios from '../../axios-orders';
 import Button from '../../components/UI/Button/GeneralButton/Button';
 
-class UserProfile extends Component {
+class UserProfile extends PureComponent {
 	state = {
 		uidInfo: '',
-		loadng: true
+		loading: true
 	};
 
 	componentDidMount() {
@@ -33,14 +33,13 @@ class UserProfile extends Component {
 		this.props.history.push('/edit-user');
 	};
 
-	render() {
-		console.log('fuck');
-		let uidInfo;
-		if (this.state.uidInfo) {
-			uidInfo = (
+	renderResults() {
+		const {uidInfo, loading} = this.state;
+		if (uidInfo) {
+			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Heading}>
-						<h1>User Profile</h1>
+						<h1>User profile</h1>
 					</div>
 					<div className={classes.Form}>
 						<div className={classes.Img} />
@@ -74,31 +73,38 @@ class UserProfile extends Component {
 					</div>
 				</div>
 			);
-		} else if (fire.auth().currentUser) {
-			uidInfo = (
-				<div className={classes.UserProfile}>
-					<div className={classes.Heading}>
-						<h1>User profile</h1>
-					</div>
-					<div className={classes.Form}>
-						<h3>Please edit your profile</h3>
-					</div>
-					<div className={classes.Button}>
-						<Button onClick={this.editProfileHandler}>Edit profile</Button>
-					</div>
-				</div>
-			);
-		} else {
-			uidInfo = (
+			return userIdInfo
+		}
+		if(uidInfo && loading) {
+			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Spinner}>
 						<Spinner />
 					</div>
 				</div>
 			);
+			return userIdInfo
 		}
+		if(fire.auth().currentUser){
+			let userIdInfo = (
+				<div className={classes.UserProfile}>
+				<div className={classes.Heading}>
+					<h1>User profile</h1>
+				</div>
+				<div className={classes.Form}>
+					<h3>Please edit your profile</h3>
+				</div>
+				<div className={classes.Button}>
+					<Button onClick={this.editProfileHandler}>Edit profile</Button>
+				</div>
+			</div>
+			);
+			return userIdInfo;
+		}
+	}
 
-		return <React.Fragment>{uidInfo}</React.Fragment>;
+	render() {
+		return <React.Fragment>{this.renderResults()}</React.Fragment>;
 	}
 }
 
