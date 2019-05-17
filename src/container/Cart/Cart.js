@@ -8,13 +8,13 @@ import fire from '../../config/config';
 
 class Cart extends Component {
 	state = {
-		cartItems: '',
+		cartItems: false,
 		isLoggedIn: false,
 		didMount: false
 	};
 
 	componentDidMount() {
-		this.ref = fire.auth()
+		this.ref = fire.auth();
 		this.ref.onAuthStateChanged((user) => {
 			this.setState({ isLoggedIn: true });
 			if (user) {
