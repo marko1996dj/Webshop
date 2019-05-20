@@ -8,7 +8,7 @@ import fire from '../../config/config';
 
 class Cart extends Component {
 	state = {
-		cartItems: '',
+		cartItems: false,
 		isLoggedIn: false,
 		didMount: false
 	};

@@ -66,7 +66,7 @@ class StoreItem extends Component {
 	render() {
 		const style = {
 			backgroundImage: 'url(' + this.props.imgUrl + ')',
-			backgroundSize: 'cover'
+			backgroundSize: 'contain'
 		};
 
 		return (
