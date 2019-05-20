@@ -1,25 +1,20 @@
 import * as actionTypes from './action';
 
 const initialState = {
-    cartItems: [],
-    wishlistItems: []
+    productInfo: '',
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type){
-        case actionTypes.ADD_TO_CART:
+        case actionTypes.ADD_PRODUCT_INFO:
         return {
             ...state,
-            cartItems: [...state.cartItems, action.cartItem]
-        };
-        case actionTypes.ADD_TO_WISHLIST:
-        return{
-            ...state,
-            wishlistItems: [...state.wishlistItems, action.wishlistItem]
+            productInfo: action.productInfo
         };
         default:
         return state;
     }
 } ;
+
 
 export default reducer;

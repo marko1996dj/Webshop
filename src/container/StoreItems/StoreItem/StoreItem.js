@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
@@ -9,14 +11,15 @@ import classes from './StoreItem.module.scss';
 class StoreItem extends Component {
 	state = {
 		cartItems: [],
-		wishlistItems: []
+		wishlistItems: [],
+		disabled: true,
+		userID: ''
 	};
 
 	addToCart = () => {
-		let userId = fire.auth().currentUser.uid;
 		fire
 			.database()
-			.ref('users/' + userId + '/cartItems')
+			.ref('users/' + this.state.userID + '/cartItems')
 			.push({
 				brand: this.props.brand,
 				description: this.props.description,
@@ -32,10 +35,9 @@ class StoreItem extends Component {
 	};
 
 	addToWishlist = () => {
-		let userId = fire.auth().currentUser.uid;
 		fire
 			.database()
-			.ref('users/' + userId + '/wishlistItems')
+			.ref('users/' + this.state.userID + '/wishlistItems')
 			.push({
 				brand: this.props.brand,
 				description: this.props.description,
@@ -50,6 +52,17 @@ class StoreItem extends Component {
 			});
 	};
 
+	productInfo = () => {
+		const productInfo = {
+			brand: this.props.brand,
+			description: this.props.description,
+			detailedDescription: this.props.detailedDescription,
+			price: this.props.price,
+			imgUrl: this.props.imgUrl
+		};
+		this.props.onAddProductInfo(productInfo);
+	};
+
 	render() {
 		const style = {
 			backgroundImage: 'url(' + this.props.imgUrl + ')',
@@ -62,23 +75,44 @@ class StoreItem extends Component {
 				<div className={classes.Name}>
 					<h3>{this.props.brand}</h3>
 				</div>
-				<div className={classes.Description}>
-					<p>{this.props.description}</p>
+				<div onClick={this.productInfo} className={classes.Description}>
+					<Link to="/product-page">Click here for more info.</Link>
 				</div>
 				<div className={classes.Price}>
 					<p>{this.props.price}$</p>
 				</div>
 				<div className={classes.Icons}>
-					<div className={classes.Cart}>
-						<FontAwesomeIcon onClick={this.addToCart} className={classes.CartIcon} icon={faCartPlus} />
+					<div>
+						<button className={classes.Cart}>
+							<FontAwesomeIcon onClick={this.addToCart} className={classes.CartIcon} icon={faCartPlus} />
+						</button>
 					</div>
-					<div className={classes.Heart}>
-						<FontAwesomeIcon onClick={this.addToWishlist} className={classes.HeartIcon} icon={faHeart} />
+					<div>
+						<button className={classes.Heart}>
+							<FontAwesomeIcon
+								onClick={this.addToWishlist}
+								className={classes.HeartIcon}
+								icon={faHeart}
+							/>
+						</button>
 					</div>
 				</div>
 			</div>
 		);
 	}
+	componentDidMount() {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				this.setState({ userID: fire.auth().currentUser.uid });
+			}
+		});
+	}
 }
 
-export default StoreItem;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onAddProductInfo: (productInfo) => dispatch({ type: 'ADD_PRODUCT_INFO', productInfo: productInfo })
+	};
+};
+
+export default connect(null, mapDispatchToProps)(StoreItem);

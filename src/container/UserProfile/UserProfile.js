@@ -13,28 +13,12 @@ class UserProfile extends PureComponent {
 		loading: true
 	};
 
-	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				axios
-					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '.json')
-					.then((response) => {
-						this.setState({ uidInfo: response.data });
-						this.setState({ loading: false });
-					})
-					.catch((e) => {
-						console.log(e);
-					});
-			}
-		});
-	}
-
 	editProfileHandler = () => {
 		this.props.history.push('/edit-user');
 	};
 
 	renderResults() {
-		const {uidInfo, loading} = this.state;
+		const { uidInfo, loading } = this.state;
 		if (uidInfo) {
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
@@ -73,9 +57,9 @@ class UserProfile extends PureComponent {
 					</div>
 				</div>
 			);
-			return userIdInfo
+			return userIdInfo;
 		}
-		if(uidInfo && loading) {
+		if (uidInfo && loading) {
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Spinner}>
@@ -83,21 +67,21 @@ class UserProfile extends PureComponent {
 					</div>
 				</div>
 			);
-			return userIdInfo
+			return userIdInfo;
 		}
-		if(fire.auth().currentUser){
+		if (fire.auth().currentUser) {
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
-				<div className={classes.Heading}>
-					<h1>User profile</h1>
+					<div className={classes.Heading}>
+						<h1>User profile</h1>
+					</div>
+					<div className={classes.Form}>
+						<h3>Please edit your profile</h3>
+					</div>
+					<div className={classes.Button}>
+						<Button onClick={this.editProfileHandler}>Edit profile</Button>
+					</div>
 				</div>
-				<div className={classes.Form}>
-					<h3>Please edit your profile</h3>
-				</div>
-				<div className={classes.Button}>
-					<Button onClick={this.editProfileHandler}>Edit profile</Button>
-				</div>
-			</div>
 			);
 			return userIdInfo;
 		}
@@ -105,6 +89,22 @@ class UserProfile extends PureComponent {
 
 	render() {
 		return <React.Fragment>{this.renderResults()}</React.Fragment>;
+	}
+
+	componentDidMount() {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '.json')
+					.then((response) => {
+						this.setState({ uidInfo: response.data });
+						this.setState({ loading: false });
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
+		});
 	}
 }
 

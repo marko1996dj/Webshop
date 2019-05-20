@@ -1,0 +1,59 @@
+.ProductPage {
+	width: 80%;
+	margin: 100px auto;
+	padding: 30px;
+    border: 1px solid #dedede;
+    -webkit-box-shadow: 0px 10px 28px 0px rgba(0, 0, 0, 0.75);
+	-moz-box-shadow: 0px 10px 28px 0px rgba(0, 0, 0, 0.75);
+	box-shadow: 0px 10px 28px 0px rgba(0, 0, 0, 0.75);
+	.Wrapper {
+		display: flex;
+		.Image {
+			img {
+				height: 300px;
+				width: auto;
+			}
+		}
+		.Brand {
+			margin-top: -20px;
+			font-size: 20px;
+			margin-left: 30px;
+			color: #4267b2;
+		}
+		.Price {
+			color: #4267b2;
+            font-size: 25px;
+            margin-left: 30px;
+		}
+	}
+
+	.Description {
+        margin-top: 15px;
+		color: gray;
+	}
+	.Buttons {
+		display: flex;
+		justify-content: space-between;
+		button {
+			width: 150px;
+		}
+		.Cart {
+			margin-left: 200px;
+			&:hover {
+				background-color: #27a645;
+			}
+			&:active {
+				background-color: darken(#27a645, 10%);
+			}
+		}
+		.Wishlist {
+			margin-right: 200px;
+			&:hover {
+				background-color: #fa8072;
+			}
+			&:active {
+				background-color: darken(#fa8072, 10%);
+			}
+		}
+	}
+}

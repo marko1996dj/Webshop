@@ -18,26 +18,33 @@
 		background-color: #007aff;
 	}
 	.Name {
-		text-align: left;
-		margin: -15px 0 0 5px;
+		h3 {
+			text-align: left;
+			margin: 5px;
+		}
 	}
 
 	.Description {
 		text-align: left;
 		margin: 0 0 0 5px;
+		a {
+			text-decoration: none;
+			color: #007aff;
+		}
 	}
 
 	.Price {
 		text-align: left;
-		margin: 0 0 0 5px;
+		margin: 5px 0 0 5px;
+		font-size: 1.5em;
 	}
 	.Button {
 		margin-top: 30px;
 	}
-	.Icons{
+	.Icons {
 		display: flex;
 		justify-content: space-between;
-		margin: 30px 25px 10px 25px;
+		margin: 20px 25px 10px 25px;
 		.Cart {
 			height: 40px;
 			width: 40px;
@@ -47,36 +54,38 @@
 			transition-duration: .15s;
 			font-size: 20px;
 			text-align: center;
-			&:hover{
+			border: none;
+			&:hover {
 				cursor: pointer;
 				background-color: darken(#27a645, 10%);
 			}
-			&:active{
+			&:active {
 				background-color: darken(#27a645, 15%);
 			}
 			.CartIcon {
-				margin-top: 10px;
+				margin-top: 3px;
 				margin-left: -3px;
 			}
 		}
-		.Heart{
+		.Heart {
 			height: 40px;
 			width: 40px;
 			border-radius: 50%;
-			background-color: #FA8072;
+			background-color: #fa8072;
 			color: white;
 			transition-duration: .15s;
 			font-size: 25px;
 			text-align: center;
-			&:hover{
+			border: none;
+			&:hover {
 				cursor: pointer;
-				background-color: darken(#FA8072, 10%);
+				background-color: darken(#fa8072, 10%);
 			}
-			&:active{
-				background-color: darken(#FA8072, 15%);
+			&:active {
+				background-color: darken(#fa8072, 15%);
 			}
-			.HeartIcon{
-				margin-top: 8px;
+			.HeartIcon {
+				margin-top: 3px;
 			}
 		}
 	}

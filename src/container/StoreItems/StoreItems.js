@@ -14,17 +14,9 @@ class StoreItems extends Component {
 		itemsPerPage: 6
 	};
 
-	componentDidMount() {
-		axios.get('https://webshop-9a548.firebaseio.com/item.json').then((response) => {
-			this.setState({ items: response.data });
-			this.setState({ loading: false });
-		});
-	}
-
 	render() {
 		let items = this.state.items;
 		let storeItem, shoes, socks, hoodies, shorts, tShirt, shirts, jackets, jeans, underwear;
-
 		if (this.props.itemType) {
 			shoes = this.props.itemType[0];
 			socks = this.props.itemType[1];
@@ -62,6 +54,7 @@ class StoreItems extends Component {
 					brand={filteredItem.brand}
 					description={filteredItem.description}
 					price={filteredItem.price}
+					detailedDescription={filteredItem.detailedDescription}
 				/>
 			));
 		} else {
@@ -72,11 +65,18 @@ class StoreItems extends Component {
 					brand={filteredItem.brand}
 					description={filteredItem.description}
 					price={filteredItem.price}
+					detailedDescription={filteredItem.detailedDescription}
 				/>
 			));
 		}
 
 		return <div className={classes.StoreItems}>{storeItem}</div>;
+	}
+	componentDidMount() {
+		axios.get('https://webshop-9a548.firebaseio.com/item.json').then((response) => {
+			this.setState({ items: response.data });
+			this.setState({ loading: false });
+		});
 	}
 }
 

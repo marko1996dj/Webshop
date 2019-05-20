@@ -11,28 +11,6 @@ class Wishlist extends Component {
 		wishlistItems: ''
 	};
 
-	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				axios
-					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/wishlistItems.json')
-					.then((response) => {
-						this.setState({ wishlistItems: response.data });
-					})
-					.catch((e) => {
-						console.log(e);
-					});
-			}
-		});
-	}
-
-	componentWillUnmount() {
-		let unsubscribe = fire.auth().onAuthStateChanged((user) => {
-			
-		})
-		unsubscribe();
-	}
-
 	render() {
 		let storeItem;
 
@@ -55,6 +33,24 @@ class Wishlist extends Component {
 				<div className={classes.WishlistItems}>{storeItem}</div>
 			</React.Fragment>
 		);
+	}
+	componentDidMount() {
+		fire.auth().onAuthStateChanged((user) => {
+			if (user) {
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/wishlistItems.json')
+					.then((response) => {
+						this.setState({ wishlistItems: response.data });
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
+		});
+	}
+	componentWillUnmount() {
+		let unsubscribe = fire.auth().onAuthStateChanged((user) => {});
+		unsubscribe();
 	}
 }
 

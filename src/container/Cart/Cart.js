@@ -13,23 +13,6 @@ class Cart extends Component {
 		didMount: false
 	};
 
-	componentDidMount() {
-		this.ref = fire.auth()
-		this.ref.onAuthStateChanged((user) => {
-			this.setState({ isLoggedIn: true });
-			if (user) {
-				axios
-					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/cartItems.json')
-					.then((response) => {
-						this.setState({ cartItems: response.data });
-					})
-					.catch((e) => {
-						console.log(e);
-					});
-			}
-		});
-	}
-
 	render() {
 		let storeItem;
 
@@ -52,6 +35,22 @@ class Cart extends Component {
 				<div className={classes.CartItems}>{storeItem}</div>
 			</React.Fragment>
 		);
+	}
+	componentDidMount() {
+		this.ref = fire.auth();
+		this.ref.onAuthStateChanged((user) => {
+			this.setState({ isLoggedIn: true });
+			if (user) {
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/cartItems.json')
+					.then((response) => {
+						this.setState({ cartItems: response.data });
+					})
+					.catch((e) => {
+						console.log(e);
+					});
+			}
+		});
 	}
 	componentWillUnmount() {
 		window.removeEventListener('unsubscribe', this.ref);

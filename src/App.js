@@ -12,16 +12,13 @@ import PassReset from './container/Auth/PassReset/PassReset';
 import EditUser from './container/EditUser/EditUser';
 import UserProfile from './container/UserProfile/UserProfile';
 import NavigationItems from './components/UI/Navigation/NavigationItems/NavigationItems';
+import ProductPage from './container/ProductPage/ProductPage';
 
 class App extends Component {
 	state = {
 		user: null,
 		userEmail: null
 	};
-
-	componentDidMount() {
-		this.authListener();
-	}
 
 	authListener() {
 		fire.auth().onAuthStateChanged((user) => {
@@ -48,9 +45,14 @@ class App extends Component {
 					<Route path="/edit-user" exact component={EditUser} />
 					<Route path="/user-profile" component={UserProfile} />
 					<Route path="/login" render={() => <Login />} />
+					<Route path="/product-page" component={ProductPage} />
 				</Switch>
 			</React.Fragment>
 		);
+	}
+
+	componentDidMount() {
+		this.authListener();
 	}
 }
 
