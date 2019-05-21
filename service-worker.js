@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/marko1996dj/Webshop/precache-manifest.d5d03164ecc18ad7f025ba52a14ffbaa.js"
+  "/Webshop/precache-manifest.cc4d130e6eb9e258e4d3464dff0e6303.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/marko1996dj/Webshop/index.html", {
+workbox.routing.registerNavigationRoute("/Webshop/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });
