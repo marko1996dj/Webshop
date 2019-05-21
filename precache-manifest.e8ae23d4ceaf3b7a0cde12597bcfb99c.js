@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/Webshop/static/js/runtime~main.74429dd9.js"
   },
   {
-    "revision": "e9f0da2f6c756803e1a8",
-    "url": "/Webshop/static/js/main.8955d48b.chunk.js"
+    "revision": "866e63f70381b61dc4ca",
+    "url": "/Webshop/static/js/main.9b0a3622.chunk.js"
   },
   {
     "revision": "7ddbb749ffd673a9f06a",
     "url": "/Webshop/static/js/2.eb5a412c.chunk.js"
   },
   {
-    "revision": "e9f0da2f6c756803e1a8",
+    "revision": "866e63f70381b61dc4ca",
     "url": "/Webshop/static/css/main.10ea7861.chunk.css"
   },
   {
-    "revision": "fd5672b1f099219e4af35ef0654a860e",
+    "revision": "d4029ec85b601e10b4fb39555a8197d3",
     "url": "/Webshop/index.html"
   }
 ];
