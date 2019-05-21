@@ -11,7 +11,7 @@ import Register from './container/Auth/Register/Register';
 import PassReset from './container/Auth/PassReset/PassReset';
 import EditUser from './container/EditUser/EditUser';
 import UserProfile from './container/UserProfile/UserProfile';
-import NavigationItems from './components/UI/Navigation/NavigationItems/NavigationItems';
+import NavigationItems from './components/Navigation/NavigationItems/NavigationItems';
 import ProductPage from './container/ProductPage/ProductPage';
 
 class App extends Component {

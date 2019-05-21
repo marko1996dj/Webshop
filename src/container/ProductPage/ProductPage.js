@@ -5,9 +5,9 @@ import fire from '../../config/config';
 import classes from './ProductPage.module.scss';
 
 import Button from '../../components/UI/Button/GeneralButton/Button';
+import AddComment from '../../components/Comment/AddComment/AddComment';
 
 class ProductPage extends Component {
-
 	addToCart = () => {
 		fire
 			.database()
@@ -72,6 +72,7 @@ class ProductPage extends Component {
 						Add to wishlist
 					</Button>
 				</div>
+				<AddComment id={this.props.productInfo.id} />
 			</div>
 		);
 	}

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import classes from './Wishlist.module.scss';
 
-import StoreItem from '../../components/UI/StoreItem/StoreItem';
+import StoreItem from '../../components/StoreItem/StoreItem';
 import axios from '../../axios-orders';
 import fire from '../../config/config';
 
@@ -36,14 +36,15 @@ class Wishlist extends Component {
 		);
 	}
 	componentDidMount() {
-		if(this.props.isLoggedIn){
-			axios.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '/wishlistItems.json')
-			.then((response) => {
-				this.setState({wishlistItems: response.data});
-			})
-			.catch(e => {
-				console.log(e);
-			})
+		if (this.props.isLoggedIn) {
+			axios
+				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '/wishlistItems.json')
+				.then((response) => {
+					this.setState({ wishlistItems: response.data });
+				})
+				.catch((e) => {
+					console.log(e);
+				});
 		}
 	}
 	componentWillUnmount() {
@@ -51,7 +52,6 @@ class Wishlist extends Component {
 		unsubscribe();
 	}
 }
-
 
 const mapStateToProps = (state) => {
 	return {

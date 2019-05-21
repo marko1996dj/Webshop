@@ -1,0 +1,22 @@
+.AddComment {
+	.Title {
+		text-align: left;
+	}
+	.Comment {
+		textarea {
+			outline: none;
+			border: 1px solid #ccc;
+			background-color: white;
+			padding: 6px 10px;
+			display: block;
+			width: 60%;
+			margin: 0 auto 30px auto;
+			border-radius: 5px;
+			min-width: 150px;
+		}
+	}
+	.Button {
+		width: 150px;
+		margin-left: 0px;
+	}
+}
