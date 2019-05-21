@@ -47,10 +47,10 @@ class StoreItems extends Component {
 					items.type === jeans ||
 					items.type === underwear
 			);
-			storeItem = filteredItems.map((filteredItem) => (
+			storeItem = filteredItems.map((filteredItem, index) => (
 				<StoreItem
 					imgUrl={filteredItem.imgUrl}
-					key={filteredItem.id}
+					key={index}
 					brand={filteredItem.brand}
 					description={filteredItem.description}
 					price={filteredItem.price}
@@ -58,10 +58,10 @@ class StoreItems extends Component {
 				/>
 			));
 		} else {
-			storeItem = this.state.items.map((filteredItem) => (
+			storeItem = this.state.items.map((filteredItem, index) => (
 				<StoreItem
 					imgUrl={filteredItem.imgUrl}
-					key={filteredItem.id}
+					key={index}
 					brand={filteredItem.brand}
 					description={filteredItem.description}
 					price={filteredItem.price}

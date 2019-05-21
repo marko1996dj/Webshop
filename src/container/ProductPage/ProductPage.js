@@ -7,17 +7,11 @@ import classes from './ProductPage.module.scss';
 import Button from '../../components/UI/Button/GeneralButton/Button';
 
 class ProductPage extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			userID: ''
-		};
-	}
 
 	addToCart = () => {
 		fire
 			.database()
-			.ref('users/' + this.state.userID + '/cartItems')
+			.ref('users/' + this.props.userId + '/cartItems')
 			.push({
 				brand: this.props.productInfo.brand,
 				description: this.props.productInfo.description,
@@ -35,7 +29,7 @@ class ProductPage extends Component {
 	addToWishlist = () => {
 		fire
 			.database()
-			.ref('users/' + this.state.userID + '/wishlistItems')
+			.ref('users/' + this.props.userId + '/wishlistItems')
 			.push({
 				brand: this.props.productInfo.brand,
 				description: this.props.productInfo.description,
@@ -81,18 +75,13 @@ class ProductPage extends Component {
 			</div>
 		);
 	}
-	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				this.setState({ userID: fire.auth().currentUser.uid });
-			}
-		});
-	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		productInfo: state.productInfo
+		productInfo: state.productInfo,
+		isLoggedIn: state.isLoggedIn,
+		userId: state.userId
 	};
 };
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import classes from './Logout.module.scss';
 import fire from '../../../config/config';
@@ -8,6 +9,9 @@ class Logout extends Component {
 	constructor(props) {
 		super(props);
 		this.logout = this.logout.bind(this);
+		this.state = {
+			isLoggedIn: this.props.isLoggedIn,
+		}
 	}
 
 	logout(e) {
@@ -16,6 +20,7 @@ class Logout extends Component {
 			.auth()
 			.signOut()
 			.then((u) => {
+				this.props.onIsLoggedOut(!this.state.isLoggedIn)
 				this.props.history.push('/login');
 			})
 			.catch((error) => {
@@ -33,4 +38,16 @@ class Logout extends Component {
 	}
 }
 
-export default withRouter(Logout);
+const mapDispatchToProps = dispatch => {
+	return{
+		onIsLoggedOut: (isLoggedOut) => dispatch({type: 'IS_LOGGED_OUT', isLoggedOut: isLoggedOut}),
+	};
+}
+
+const mapStateToProps = state => {
+	return {
+		isLoggedIn: state.isLoggedIn
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Logout));

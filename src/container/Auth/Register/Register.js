@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Register.module.scss';
 
@@ -15,7 +16,8 @@ class Register extends Component {
 			email: '',
 			password: '',
 			verifyPassword: '',
-			error: ''
+			error: '',
+			isLoggedIn: this.props.isLoggedIn
 		};
 	}
 
@@ -29,6 +31,8 @@ class Register extends Component {
 				.auth()
 				.createUserWithEmailAndPassword(email, verifyPassword)
 				.then((u) => {
+					this.setState({ isLoggedIn: true });
+					this.props.onIsLoggedIn(this.state.isLoggedIn);
 					this.props.history.push('/edit-user');
 				})
 				.catch((error) => {
@@ -97,4 +101,16 @@ class Register extends Component {
 	}
 }
 
-export default Register;
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn })
+	};
+};
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Register);

@@ -12,14 +12,13 @@ class StoreItem extends Component {
 	state = {
 		cartItems: [],
 		wishlistItems: [],
-		disabled: true,
-		userID: ''
 	};
 
 	addToCart = () => {
-		fire
+		if(this.props.isLoggedIn) {
+			fire
 			.database()
-			.ref('users/' + this.state.userID + '/cartItems')
+			.ref('users/' + this.props.userId + '/cartItems')
 			.push({
 				brand: this.props.brand,
 				description: this.props.description,
@@ -32,12 +31,17 @@ class StoreItem extends Component {
 			.catch((e) => {
 				console.log(e);
 			});
+		} else {
+			alert("You must be logged in")
+		}
+
 	};
 
 	addToWishlist = () => {
-		fire
+		if(this.props.isLoggedIn){
+			fire
 			.database()
-			.ref('users/' + this.state.userID + '/wishlistItems')
+			.ref('users/' + this.props.userId + '/wishlistItems')
 			.push({
 				brand: this.props.brand,
 				description: this.props.description,
@@ -50,6 +54,10 @@ class StoreItem extends Component {
 			.catch((e) => {
 				console.log(e);
 			});
+		} else {
+			alert("You must be logged in")
+		}
+
 	};
 
 	productInfo = () => {
@@ -66,7 +74,7 @@ class StoreItem extends Component {
 	render() {
 		const style = {
 			backgroundImage: 'url(' + this.props.imgUrl + ')',
-			backgroundSize: 'contain'
+			backgroundSize: 'cover'
 		};
 
 		return (
@@ -100,14 +108,15 @@ class StoreItem extends Component {
 			</div>
 		);
 	}
-	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				this.setState({ userID: fire.auth().currentUser.uid });
-			}
-		});
-	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn,
+		userId: state.userId
+	};
+};
+
 
 const mapDispatchToProps = (dispatch) => {
 	return {
@@ -115,4 +124,4 @@ const mapDispatchToProps = (dispatch) => {
 	};
 };
 
-export default connect(null, mapDispatchToProps)(StoreItem);
+export default connect(mapStateToProps, mapDispatchToProps)(StoreItem);

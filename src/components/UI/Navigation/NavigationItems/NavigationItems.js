@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import NavigationItem from './NavigationItem/NavigationItem';
 import Logout from '../../../../container/Auth/Logout/Logout';
-import fire from '../../../../config/config';
 
 import classes from './NavigationItems.module.scss';
 
@@ -10,7 +10,7 @@ class NavigationItems extends Component {
 	render() {
 		let link = <p>Login/Register</p>;
 		let userProfile;
-		if (fire.auth().currentUser !== null) {
+		if(this.props.isLoggedIn) {
 			link = <Logout />;
 			userProfile = 'User Profile';
 		}
@@ -26,4 +26,12 @@ class NavigationItems extends Component {
 		);
 	}
 }
-export default NavigationItems;
+
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn,
+	};
+};
+
+export default connect(mapStateToProps)(NavigationItems);

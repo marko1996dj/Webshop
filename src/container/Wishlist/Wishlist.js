@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './Wishlist.module.scss';
 
@@ -17,10 +18,10 @@ class Wishlist extends Component {
 		if (this.state.wishlistItems) {
 			const wishlistItems = Object.values(this.state.wishlistItems);
 
-			storeItem = wishlistItems.map((cartItem) => (
+			storeItem = wishlistItems.map((cartItem, index) => (
 				<StoreItem
 					imgUrl={cartItem.imgUrl}
-					key={cartItem.imgUrl}
+					key={index}
 					brand={cartItem.brand}
 					description={cartItem.description}
 					price={cartItem.price}
@@ -35,18 +36,15 @@ class Wishlist extends Component {
 		);
 	}
 	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				axios
-					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '/wishlistItems.json')
-					.then((response) => {
-						this.setState({ wishlistItems: response.data });
-					})
-					.catch((e) => {
-						console.log(e);
-					});
-			}
-		});
+		if(this.props.isLoggedIn){
+			axios.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '/wishlistItems.json')
+			.then((response) => {
+				this.setState({wishlistItems: response.data});
+			})
+			.catch(e => {
+				console.log(e);
+			})
+		}
 	}
 	componentWillUnmount() {
 		let unsubscribe = fire.auth().onAuthStateChanged((user) => {});
@@ -54,4 +52,12 @@ class Wishlist extends Component {
 	}
 }
 
-export default Wishlist;
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn,
+		userId: state.userId
+	};
+};
+
+export default connect(mapStateToProps)(Wishlist);

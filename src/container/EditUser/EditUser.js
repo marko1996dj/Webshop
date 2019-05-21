@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './EditUser.module.scss';
 
@@ -28,11 +29,10 @@ class User extends Component {
 
 	updateUser(e) {
 		e.preventDefault();
-		let userID = fire.auth().currentUser.uid;
 		fire
 			.database()
 			.ref('users/')
-			.child(userID)
+			.child(this.props.userId)
 			.set({
 				firstName: this.state.firstName,
 				lastName: this.state.lastName,
@@ -117,4 +117,12 @@ class User extends Component {
 	}
 }
 
-export default User;
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn,
+		userId: state.userId
+	};
+};
+
+
+export default connect(mapStateToProps)(User);

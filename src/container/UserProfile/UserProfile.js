@@ -1,15 +1,15 @@
 import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 
 import classes from './UserProfile.module.scss';
 
 import Spinner from '../../components/UI/Spinner/Spinner';
-import fire from '../../config/config';
 import axios from '../../axios-orders';
 import Button from '../../components/UI/Button/GeneralButton/Button';
 
 class UserProfile extends PureComponent {
 	state = {
-		uidInfo: '',
+		uidInfo: false,
 		loading: true
 	};
 
@@ -59,7 +59,7 @@ class UserProfile extends PureComponent {
 			);
 			return userIdInfo;
 		}
-		if (uidInfo && loading) {
+		if (loading) {
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Spinner}>
@@ -69,7 +69,7 @@ class UserProfile extends PureComponent {
 			);
 			return userIdInfo;
 		}
-		if (fire.auth().currentUser) {
+		if (this.props.isLoggedIn) {
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Heading}>
@@ -92,20 +92,25 @@ class UserProfile extends PureComponent {
 	}
 
 	componentDidMount() {
-		fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				axios
-					.get('https://webshop-9a548.firebaseio.com/users/' + user.uid + '.json')
-					.then((response) => {
-						this.setState({ uidInfo: response.data });
-						this.setState({ loading: false });
-					})
-					.catch((e) => {
-						console.log(e);
-					});
-			}
-		});
+		if (this.props.isLoggedIn) {
+			axios
+				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '.json')
+				.then((response) => {
+					this.setState({ uidInfo: response.data });
+					this.setState({ loading: false });
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		}
 	}
 }
 
-export default UserProfile;
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn,
+		userId: state.userId
+	};
+};
+
+export default connect(mapStateToProps)(UserProfile);

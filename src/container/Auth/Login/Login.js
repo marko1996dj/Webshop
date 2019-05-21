@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import classes from './Login.module.scss';
 
@@ -16,7 +17,9 @@ class Login extends Component {
 			email: '',
 			password: '',
 			wrongPasswordCounter: 0,
-			error: ''
+			error: '',
+			isLoggedIn: false,
+			userId: '',
 		};
 	}
 
@@ -25,7 +28,10 @@ class Login extends Component {
 		fire
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
-			.then((u) => {
+			.then((user) => {
+				this.setState({isLoggedIn: true})
+				this.props.onIsLoggedIn(this.state.isLoggedIn)
+				this.props.onAddUserId(user.user.uid)
 				this.props.history.push('/webshop');
 			})
 			.catch((error) => {
@@ -85,4 +91,11 @@ class Login extends Component {
 	}
 }
 
-export default withRouter(Login);
+const mapDispatchToProps = dispatch => {
+	return{
+		onIsLoggedIn: (isLoggedIn) => dispatch ({type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn}),
+		onAddUserId: (userId) => dispatch ({type: 'ADD_USER_ID', userId: userId})
+	}
+}
+
+export default connect(null, mapDispatchToProps)(withRouter(Login));
