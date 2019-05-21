@@ -35,7 +35,7 @@ class App extends Component {
 		return (
 			<React.Fragment>
 				<NavigationItems />
-				<HashRouter basename="/">
+				<HashRouter>
 					<Switch>
 						<Route path="/" exact component={Webshop} />
 						<Route path="/webshop" component={Webshop} />
