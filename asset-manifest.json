@@ -1,13 +1,13 @@
 {
   "main.css": "/marko1996dj/Webshop/static/css/main.10ea7861.chunk.css",
-  "main.js": "/marko1996dj/Webshop/static/js/main.4c22d164.chunk.js",
-  "main.js.map": "/marko1996dj/Webshop/static/js/main.4c22d164.chunk.js.map",
+  "main.js": "/marko1996dj/Webshop/static/js/main.a6f8978d.chunk.js",
+  "main.js.map": "/marko1996dj/Webshop/static/js/main.a6f8978d.chunk.js.map",
   "runtime~main.js": "/marko1996dj/Webshop/static/js/runtime~main.d82213da.js",
   "runtime~main.js.map": "/marko1996dj/Webshop/static/js/runtime~main.d82213da.js.map",
   "static/js/2.a756604c.chunk.js": "/marko1996dj/Webshop/static/js/2.a756604c.chunk.js",
   "static/js/2.a756604c.chunk.js.map": "/marko1996dj/Webshop/static/js/2.a756604c.chunk.js.map",
   "index.html": "/marko1996dj/Webshop/index.html",
-  "precache-manifest.e14ae57d36c753eb4e6a06a9b6221bf9.js": "/marko1996dj/Webshop/precache-manifest.e14ae57d36c753eb4e6a06a9b6221bf9.js",
+  "precache-manifest.d5d03164ecc18ad7f025ba52a14ffbaa.js": "/marko1996dj/Webshop/precache-manifest.d5d03164ecc18ad7f025ba52a14ffbaa.js",
   "service-worker.js": "/marko1996dj/Webshop/service-worker.js",
   "static/css/main.10ea7861.chunk.css.map": "/marko1996dj/Webshop/static/css/main.10ea7861.chunk.css.map"
 }
