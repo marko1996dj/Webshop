@@ -13,6 +13,7 @@ import EditUser from './container/EditUser/EditUser';
 import UserProfile from './container/UserProfile/UserProfile';
 import NavigationItems from './components/Navigation/NavigationItems/NavigationItems';
 import ProductPage from './container/ProductPage/ProductPage';
+import Footer from './components/Footer/Footer';
 
 class App extends Component {
 	state = {
@@ -36,19 +37,20 @@ class App extends Component {
 			<React.Fragment>
 				<NavigationItems />
 				{/* <HashRouter basename="/"> */}
-					<Switch>
-						<Route path="/" exact component={Webshop} />
-						<Route path="/webshop" component={Webshop} />
-						<Route path="/cart" component={Cart} />
-						<Route path="/wishlist" component={Wishlist} />
-						<Route path="/register" component={Register} />
-						<Route path="/password-reset" component={PassReset} />
-						<Route path="/edit-user" exact component={EditUser} />
-						<Route path="/user-profile" component={UserProfile} />
-						<Route path="/login" render={() => <Login />} />
-						<Route path="/product-page" component={ProductPage} />
-					</Switch>
+				<Switch>
+					<Route path="/" exact component={Webshop} />
+					<Route path="/webshop" component={Webshop} />
+					<Route path="/cart" component={Cart} />
+					<Route path="/wishlist" component={Wishlist} />
+					<Route path="/register" component={Register} />
+					<Route path="/password-reset" component={PassReset} />
+					<Route path="/edit-user" exact component={EditUser} />
+					<Route path="/user-profile" component={UserProfile} />
+					<Route path="/login" render={() => <Login />} />
+					<Route path="/product-page" component={ProductPage} />
+				</Switch>
 				{/* </HashRouter> */}
+				<Footer />
 			</React.Fragment>
 		);
 	}

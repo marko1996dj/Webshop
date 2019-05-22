@@ -22,23 +22,28 @@ class AddComment extends Component {
 	};
 
 	addCommentHandler = () => {
-		fire
-			.database()
-			.ref('item/' + this.props.id + '/comments')
-			.push({
-				firstName: this.props.userInfo.firstName,
-				lastName: this.props.userInfo.lastName,
-				title: this.state.title,
-				comment: this.state.comment
-			})
-			.then((u) => {
-				alert('Comment added successfuly');
-				window.location.reload();
-			})
-			.catch((e) => {
-				console.log(e);
-			});
-			
+		if (this.props.userId && !this.props.userInfo) {
+			alert('You need to fill your information before leaving a comment');
+		} else if (this.props.userId) {
+			fire
+				.database()
+				.ref('item/' + this.props.id + '/comments')
+				.push({
+					firstName: this.props.userInfo.firstName,
+					lastName: this.props.userInfo.lastName,
+					title: this.state.title,
+					comment: this.state.comment
+				})
+				.then((u) => {
+					alert('Comment added successfuly');
+					window.location.reload();
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		} else {
+			alert('To leave a comment you need to be logged in!');
+		}
 	};
 
 	render() {
@@ -79,10 +84,11 @@ class AddComment extends Component {
 	}
 }
 
-const mapStateToProps = state => {
-	return{
-		userInfo: state.userInfo
-	}
-}
+const mapStateToProps = (state) => {
+	return {
+		userInfo: state.userInfo,
+		userId: state.userId
+	};
+};
 
 export default connect(mapStateToProps)(AddComment);
