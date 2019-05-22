@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import axios from '../../../axios-orders';
 
 import classes from './Login.module.scss';
 
@@ -20,6 +21,7 @@ class Login extends Component {
 			error: '',
 			isLoggedIn: false,
 			userId: '',
+			user: ''
 		};
 	}
 
@@ -29,9 +31,17 @@ class Login extends Component {
 			.auth()
 			.signInWithEmailAndPassword(this.state.email, this.state.password)
 			.then((user) => {
-				this.setState({isLoggedIn: true})
-				this.props.onIsLoggedIn(this.state.isLoggedIn)
-				this.props.onAddUserId(user.user.uid)
+				this.setState({ isLoggedIn: true });
+				this.setState({ userId: user.user.uid });
+				this.props.onIsLoggedIn(this.state.isLoggedIn);
+				this.props.onAddUserId(this.state.userId);
+				axios
+					.get('https://webshop-9a548.firebaseio.com/users/' + this.state.userId + '.json')
+					.then((response) => {
+						console.log(response.data);
+						this.setState({ user: response.data });
+						this.props.onAddingUserInfo(response.data);
+					});
 				this.props.history.push('/webshop');
 			})
 			.catch((error) => {
@@ -91,11 +101,12 @@ class Login extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return{
-		onIsLoggedIn: (isLoggedIn) => dispatch ({type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn}),
-		onAddUserId: (userId) => dispatch ({type: 'ADD_USER_ID', userId: userId})
-	}
-}
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }),
+		onAddUserId: (userId) => dispatch({ type: 'ADD_USER_ID', userId: userId }),
+		onAddingUserInfo: (userInfo) => dispatch({ type: 'ADD_USER_INFO', userInfo: userInfo })
+	};
+};
 
 export default connect(null, mapDispatchToProps)(withRouter(Login));

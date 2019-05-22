@@ -1,13 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fire from '../../config/config';
+import axios from '../../axios-orders';
 
 import classes from './ProductPage.module.scss';
 
 import Button from '../../components/UI/Button/GeneralButton/Button';
 import AddComment from '../../components/Comment/AddComment/AddComment';
+import CommentList from '../../components/Comment/CommentList/CommentList';
 
 class ProductPage extends Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			comments: false
+		};
+	}
+
 	addToCart = () => {
 		fire
 			.database()
@@ -45,6 +54,21 @@ class ProductPage extends Component {
 	};
 
 	render() {
+		let commentList;
+
+		if (this.state.comments) {
+			const comments = Object.values(this.state.comments);
+			commentList = comments.map((comment, index) => (
+				<CommentList
+					firstName={comment.firstName}
+					lastName={comment.lastName}
+					key={index}
+					title={comment.title}
+					comment={comment.comment}
+				/>
+			));
+		}
+
 		const productInfo = this.props.productInfo;
 		return (
 			<div className={classes.ProductPage}>
@@ -73,8 +97,20 @@ class ProductPage extends Component {
 					</Button>
 				</div>
 				<AddComment id={this.props.productInfo.id} />
+				{commentList}
 			</div>
 		);
+	}
+
+	componentDidMount() {
+		axios
+			.get('https://webshop-9a548.firebaseio.com/item/' + this.props.productInfo.id + '/comments.json')
+			.then((response) => {
+				this.setState({ comments: response.data });
+			})
+			.catch((e) => {
+				console.log(e);
+			});
 	}
 }
 

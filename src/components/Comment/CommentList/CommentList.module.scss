@@ -1,0 +1,15 @@
+.CommentList {
+	border-bottom: 1px solid #dedede;
+	padding: 20px;
+	.User {
+        color: darken(#4267b2, 20%);
+        margin-bottom: 5px;
+	}
+	.Title {
+        font-weight: bold;
+        margin-bottom: 5px;
+	}
+	.Comment {
+		color: darken(gray, 20%);
+	}
+}

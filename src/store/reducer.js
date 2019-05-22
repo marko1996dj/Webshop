@@ -1,9 +1,10 @@
 import * as actionTypes from './action';
 
 const initialState = {
-    productInfo: '',
+    productInfo: false,
     isLoggedIn: false,
     userId: false,
+    userInfo: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -28,6 +29,11 @@ const reducer = (state = initialState, action) => {
             ...state,
             isLoggedIn: action.isLoggedOut,
             userId: false
+        }
+        case actionTypes.ADD_USER_INFO:
+        return{
+            ...state,
+            userInfo: action.userInfo
         }
         default:
         return state;

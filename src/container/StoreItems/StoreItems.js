@@ -16,7 +16,6 @@ class StoreItems extends Component {
 
 	render() {
 		let items = this.state.items;
-		console.log(items);
 		let storeItem, shoes, socks, hoodies, shorts, tShirt, shirts, jackets, jeans, underwear;
 		if (this.props.itemType) {
 			shoes = this.props.itemType[0];

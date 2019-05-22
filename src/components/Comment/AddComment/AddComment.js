@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import fire from '../../../config/config';
+import { connect } from 'react-redux';
 
 import Input from '../../UI/Input/Input';
 import Button from '../../UI/Button/GeneralButton/Button';
@@ -19,8 +21,27 @@ class AddComment extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	};
 
+	addCommentHandler = () => {
+		fire
+			.database()
+			.ref('item/' + this.props.id + '/comments')
+			.push({
+				firstName: this.props.userInfo.firstName,
+				lastName: this.props.userInfo.lastName,
+				title: this.state.title,
+				comment: this.state.comment
+			})
+			.then((u) => {
+				alert('Comment added successfuly');
+				window.location.reload();
+			})
+			.catch((e) => {
+				console.log(e);
+			});
+			
+	};
+
 	render() {
-		console.log(this.props.id);
 		const style = {
 			marginLeft: '0'
 		};
@@ -50,7 +71,7 @@ class AddComment extends Component {
 						autoComplete="off"
 					/>
 				</div>
-				<Button style={{ width: 'none' }} className={classes.Button}>
+				<Button onClick={this.addCommentHandler} style={{ width: 'none' }} className={classes.Button}>
 					Add Comment
 				</Button>
 			</div>
@@ -58,4 +79,10 @@ class AddComment extends Component {
 	}
 }
 
-export default AddComment;
+const mapStateToProps = state => {
+	return{
+		userInfo: state.userInfo
+	}
+}
+
+export default connect(mapStateToProps)(AddComment);
