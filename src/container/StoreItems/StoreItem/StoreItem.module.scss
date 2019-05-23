@@ -15,7 +15,7 @@
 		border-bottom: 1px solid #dedede;
 		border-top-left-radius: 15px;
 		border-top-right-radius: 15px;
-		background-color: #007aff;
+		background-color: white;
 	}
 	.Name {
 		h3 {
@@ -30,6 +30,15 @@
 		a {
 			text-decoration: none;
 			color: #007aff;
+			transition-duration: .15s;
+			&:hover {
+				color: darken(#007aff, 10%);
+				text-decoration: underline;
+			}
+			&:active {
+				color: darken(#007aff, 20%);
+				cursor: grabbing;
+			}
 		}
 	}
 
@@ -38,15 +47,14 @@
 		margin: 5px 0 0 5px;
 		font-size: 1.5em;
 	}
-	.Button {
-		margin-top: 30px;
-	}
+
 	.Icons {
 		display: flex;
 		justify-content: space-between;
 		margin: 20px 25px 10px 25px;
 		.Cart {
-			height: 40px;
+			padding-top: 8px;
+			height: 32px;
 			width: 40px;
 			border-radius: 50%;
 			background-color: #27a645;
@@ -60,7 +68,8 @@
 				background-color: darken(#27a645, 10%);
 			}
 			&:active {
-				background-color: darken(#27a645, 15%);
+				background-color: darken(#27a645, 20%);
+				cursor: grabbing;
 			}
 			.CartIcon {
 				margin-top: 3px;
@@ -68,7 +77,8 @@
 			}
 		}
 		.Heart {
-			height: 40px;
+			padding-top: 5px;
+			height: 35px;
 			width: 40px;
 			border-radius: 50%;
 			background-color: #fa8072;
@@ -82,7 +92,8 @@
 				background-color: darken(#fa8072, 10%);
 			}
 			&:active {
-				background-color: darken(#fa8072, 15%);
+				background-color: darken(#fa8072, 20%);
+				cursor: grabbing;
 			}
 			.HeartIcon {
 				margin-top: 3px;

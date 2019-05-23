@@ -89,19 +89,11 @@ class StoreItem extends Component {
 					<p>{this.props.price}$</p>
 				</div>
 				<div className={classes.Icons}>
-					<div>
-						<button className={classes.Cart}>
-							<FontAwesomeIcon onClick={this.addToCart} className={classes.CartIcon} icon={faCartPlus} />
-						</button>
+					<div className={classes.Cart}>
+						<FontAwesomeIcon onClick={this.addToCart} className={classes.CartIcon} icon={faCartPlus} />
 					</div>
-					<div>
-						<button className={classes.Heart}>
-							<FontAwesomeIcon
-								onClick={this.addToWishlist}
-								className={classes.HeartIcon}
-								icon={faHeart}
-							/>
-						</button>
+					<div className={classes.Heart}>
+						<FontAwesomeIcon onClick={this.addToWishlist} className={classes.HeartIcon} icon={faHeart} />
 					</div>
 				</div>
 			</div>

@@ -27,6 +27,7 @@
 			}
 			&:active {
 				background-color: darken(#4267b2, 10%);
+				cursor: grabbing;
 			}
 		}
 	}

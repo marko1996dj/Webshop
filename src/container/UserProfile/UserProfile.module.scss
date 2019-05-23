@@ -40,6 +40,13 @@
 		text-align: center;
 		button {
 			width: 150px;
+			&:hover{
+				background-color: #4267b2;
+			}
+			&:active{
+				background-color: darken(#4267b2, 10%);
+				cursor: grabbing;
+			}
 		}
 	}
 	.Spinner {

@@ -1,4 +1,7 @@
 p{
     margin-block-start: 0px;
     margin-block-end: 0px;
+    &:active{
+        cursor: grabbing;
+    }
 }

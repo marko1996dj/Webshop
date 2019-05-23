@@ -5,6 +5,8 @@ const initialState = {
     isLoggedIn: false,
     userId: false,
     userInfo: false,
+    firstItem: 0,
+    lastItem: 6
 };
 
 const reducer = (state = initialState, action) => {

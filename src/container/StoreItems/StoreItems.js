@@ -10,8 +10,8 @@ class StoreItems extends Component {
 	state = {
 		items: [],
 		loading: true,
-		currentPage: 1,
-		itemsPerPage: 6
+		firstItem: 0,
+		lastItem: 6
 	};
 
 	render() {
@@ -35,18 +35,20 @@ class StoreItems extends Component {
 				</div>
 			);
 		} else if (this.props.itemType) {
-			let filteredItems = items.filter(
-				(items) =>
-					items.type === shoes ||
-					items.type === socks ||
-					items.type === hoodies ||
-					items.type === shorts ||
-					items.type === tShirt ||
-					items.type === shirts ||
-					items.type === jackets ||
-					items.type === jeans ||
-					items.type === underwear
-			);
+			let filteredItems = items
+				.filter(
+					(items) =>
+						items.type === shoes ||
+						items.type === socks ||
+						items.type === hoodies ||
+						items.type === shorts ||
+						items.type === tShirt ||
+						items.type === shirts ||
+						items.type === jackets ||
+						items.type === jeans ||
+						items.type === underwear
+				)
+				.slice(this.state.firstItem, this.state.lastItem);
 			storeItem = filteredItems.map((filteredItem, index) => (
 				<StoreItem
 					uniqueId={filteredItem.id}
@@ -59,17 +61,19 @@ class StoreItems extends Component {
 				/>
 			));
 		} else {
-			storeItem = this.state.items.map((filteredItem, index) => (
-				<StoreItem
-					uniqueId={filteredItem.id}
-					imgUrl={filteredItem.imgUrl}
-					key={index}
-					brand={filteredItem.brand}
-					description={filteredItem.description}
-					price={filteredItem.price}
-					detailedDescription={filteredItem.detailedDescription}
-				/>
-			));
+			storeItem = items
+				.slice(this.state.firstItem, this.state.lastItem)
+				.map((filteredItem, index) => (
+					<StoreItem
+						uniqueId={filteredItem.id}
+						imgUrl={filteredItem.imgUrl}
+						key={index}
+						brand={filteredItem.brand}
+						description={filteredItem.description}
+						price={filteredItem.price}
+						detailedDescription={filteredItem.detailedDescription}
+					/>
+				));
 		}
 
 		return <div className={classes.StoreItems}>{storeItem}</div>;
@@ -78,6 +82,13 @@ class StoreItems extends Component {
 		axios.get('https://webshop-9a548.firebaseio.com/item.json').then((response) => {
 			this.setState({ items: response.data });
 			this.setState({ loading: false });
+		});
+	}
+
+	componentWillReceiveProps(nextProps) {
+		this.setState({
+			firstItem: nextProps.firstItem,
+			lastItem: nextProps.lastItem
 		});
 	}
 }
