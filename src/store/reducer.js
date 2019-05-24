@@ -30,7 +30,9 @@ const reducer = (state = initialState, action) => {
         return{
             ...state,
             isLoggedIn: action.isLoggedOut,
-            userId: false
+            userId: false,
+            userInfo: false,
+
         }
         case actionTypes.ADD_USER_INFO:
         return{

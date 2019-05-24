@@ -15,17 +15,16 @@ class Cart extends Component {
 		let storeItem;
 
 		if (this.state.cartItems) {
-			// let proba = Object.entries(this.state.cartItems);
-			// console.log(proba[0][1]);
-			const cartItems = Object.values(this.state.cartItems);
-			storeItem = cartItems.map((cartItem, index) => (
-				<StoreItem
-					imgUrl={cartItem.imgUrl}
-					key={index}
-					brand={cartItem.brand}
-					description={cartItem.description}
-					price={cartItem.price}
-				/>
+			const cartKeys = Object.keys(this.state.cartItems);
+			storeItem = cartKeys.map(cartKey => (
+			   <StoreItem
+				  imgUrl={this.state.cartItems[cartKey].imgUrl}
+				  key={cartKey}
+				  itemKey={cartKey}
+				  brand={this.state.cartItems[cartKey].brand}
+				  description={this.state.cartItems[cartKey].description}
+				  price={this.state.cartItems[cartKey].price}
+			   />
 			));
 		}
 

@@ -1,34 +1,66 @@
 .StoreItem {
-	width: 220px;
-	height: 330px;
-	margin-left: 20px;
-	margin-top: 20px;
-	border: none;
-	color: gray;
-	border-radius: 15px;
-	-webkit-box-shadow: 0px 10px 30px -16px rgba(0, 0, 0, 0.75);
-	-moz-box-shadow: 0px 10px 30px -16px rgba(0, 0, 0, 0.75);
-	box-shadow: 0px 10px 30px -16px rgba(0, 0, 0, 0.75);
+	border-bottom: 1px solid #dedede;
+	padding: 20px;
 	.Image {
-		width: 100%;
-		height: 50%;
-		border-bottom: 1px solid #dedede;
-		border-top-left-radius: 15px;
-		border-top-right-radius: 15px;
-		background-color: #007aff;
+		grid-area: Image;
 	}
 	.Name {
-		text-align: left;
-		margin: -15px 0 0 5px;
+		grid-area: Name;
 	}
-
 	.Description {
-		text-align: left;
-		margin: 0 0 0 5px;
+		grid-area: Description;
 	}
-
 	.Price {
-		text-align: left;
-		margin: 0 0 0 5px;
+		grid-area: Price;
+	}
+	.RemoveCart {
+		grid-area: RemoveCart;
+	}
+	color: #4267b2;
+	display: grid;
+	grid-template-columns: 200px;
+	grid-template-rows: 67px 67px 67px;
+	grid-template-areas: 
+		'Image  Name Name Name' 
+		'Image Description Description Description'
+		'Image Price Price RemoveCart';
+
+	.Image {
+		img {
+			height: 200px;
+			width: 200px;
+		}
+	}
+	.Name {
+		padding-left: 30px;
+		h3 {
+			font-size: 30px;
+			margin-block-start: 0;
+			margin-block-end: 0;
+		}
+	}
+	.Price{
+		padding-left: 30px;
+		font-size: 40px;
+		align-self: end;
+	}
+	.Description{
+		padding-left: 30px;
+		align-self: center;
+	}
+	.RemoveCart{
+		color: red;
+		font-size: 30px;
+		align-self: end;
+		justify-self: end;
+		transition-duration: .15s;
+		&:hover{
+			color: darken(red, 10%);
+			cursor: pointer;
+		}
+		&:active{
+			color: darken(red, 20%);
+			cursor: grabbing;
+		}
 	}
 }

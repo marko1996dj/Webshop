@@ -72,13 +72,15 @@ class StoreItem extends Component {
 
 	render() {
 		const style = {
-			backgroundImage: 'url(' + this.props.imgUrl + ')',
-			backgroundSize: 'cover'
+			height: "165px",
+			width: "auto"
 		};
 
 		return (
 			<div className={classes.StoreItem}>
-				<div style={style} className={classes.Image} />
+				<div  className={classes.Image}>
+					<img style={style} src={this.props.imgUrl}></img>
+				</div>
 				<div className={classes.Name}>
 					<h3>{this.props.brand}</h3>
 				</div>
