@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
-import fire from '../../../config/config';
+import config from '../../../config/config';
 
 import classes from './StoreItem.module.scss';
 
@@ -16,7 +16,7 @@ class StoreItem extends Component {
 
 	addToCart = () => {
 		if (this.props.isLoggedIn) {
-			fire
+			config.fire
 				.database()
 				.ref('users/' + this.props.userId + '/cartItems')
 				.push({
@@ -38,7 +38,7 @@ class StoreItem extends Component {
 
 	addToWishlist = () => {
 		if (this.props.isLoggedIn) {
-			fire
+			config.fire
 				.database()
 				.ref('users/' + this.props.userId + '/wishlistItems')
 				.push({
@@ -72,14 +72,14 @@ class StoreItem extends Component {
 
 	render() {
 		const style = {
-			height: "165px",
-			width: "auto"
+			height: '165px',
+			width: 'auto'
 		};
 
 		return (
 			<div className={classes.StoreItem}>
-				<div  className={classes.Image}>
-					<img style={style} src={this.props.imgUrl}></img>
+				<div className={classes.Image}>
+					<img style={style} src={this.props.imgUrl} alt={this.props.imgUrl} />
 				</div>
 				<div className={classes.Name}>
 					<h3>{this.props.brand}</h3>

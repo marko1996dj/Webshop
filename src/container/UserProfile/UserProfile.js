@@ -26,7 +26,9 @@ class UserProfile extends PureComponent {
 						<h1>User profile</h1>
 					</div>
 					<div className={classes.Form}>
-						<div className={classes.Img} />
+						<div className={classes.Img}>
+							<img src={this.state.uidInfo.imgUrl} alt="slika"></img>
+						</div>
 						<div className={classes.Info}>
 							<div className={classes.Wrapper}>
 								<div className={classes.Wrap}>

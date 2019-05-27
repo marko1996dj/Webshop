@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import fire from '../../config/config';
+import config from '../../config/config';
 import axios from '../../axios-orders';
 
 import classes from './ProductPage.module.scss';
@@ -18,7 +18,7 @@ class ProductPage extends Component {
 	}
 
 	addToCart = () => {
-		fire
+		config.fire
 			.database()
 			.ref('users/' + this.props.userId + '/cartItems')
 			.push({
@@ -36,7 +36,7 @@ class ProductPage extends Component {
 	};
 
 	addToWishlist = () => {
-		fire
+		config.fire
 			.database()
 			.ref('users/' + this.props.userId + '/wishlistItems')
 			.push({

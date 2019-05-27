@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import classes from './Logout.module.scss';
-import fire from '../../../config/config';
+import config from '../../../config/config';
 
 class Logout extends Component {
 	constructor(props) {
@@ -16,7 +16,7 @@ class Logout extends Component {
 
 	logout(e) {
 		e.preventDefault();
-		fire
+		config.fire
 			.auth()
 			.signOut()
 			.then((u) => {

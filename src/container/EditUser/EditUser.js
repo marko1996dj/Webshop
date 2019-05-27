@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import classes from './EditUser.module.scss';
 
-import fire from '../../config/config';
+import config from '../../config/config'
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/GeneralButton/Button';
 
@@ -11,6 +11,7 @@ class User extends Component {
 	constructor(props) {
 		super(props);
 		this.handleChange = this.handleChange.bind(this);
+		this.handleImageChange = this.handleImageChange.bind(this);
 		this.updateUser = this.updateUser.bind(this);
 		this.state = {
 			firstName: '',
@@ -19,7 +20,8 @@ class User extends Component {
 			city: '',
 			streetAddress: '',
 			zipCode: '',
-			error: ''
+			error: '',
+			imageUrl: null
 		};
 	}
 
@@ -27,9 +29,49 @@ class User extends Component {
 		this.setState({ [e.target.name]: e.target.value });
 	}
 
+	handleImageChange(e) {
+		if (e.target.files[0]) {
+			this.setState({ imageUrl: e.target.files[0] });
+			console.log(this.state.imageUrl);
+		}
+	}
+
 	updateUser(e) {
 		e.preventDefault();
-		fire
+
+		if(this.state.imageUrl) {
+			config.storage.ref('images/' + this.state.imageUrl.name).put(this.state.imageUrl).on(
+				'state_changed',
+				(snapshot) => {},
+				(error) => {
+					console.log(error);
+				},
+				() => {
+					config.storage.ref('images').child(this.state.imageUrl.name).getDownloadURL().then((url) => {
+						config.fire
+						.database()
+						.ref('users/')
+						.child(this.props.userId)
+						.set({
+							firstName: this.state.firstName,
+							lastName: this.state.lastName,
+							country: this.state.country,
+							city: this.state.city,
+							streetAddress: this.state.streetAddress,
+							zipCode: this.state.zipCode,
+							imgUrl: url
+						})
+						.then(() => {
+							this.props.history.push('/user-profile');
+						})
+						.catch((e) => {
+							console.log(e);
+						});
+					});
+				}
+			)
+		}else{
+			config.fire
 			.database()
 			.ref('users/')
 			.child(this.props.userId)
@@ -39,7 +81,7 @@ class User extends Component {
 				country: this.state.country,
 				city: this.state.city,
 				streetAddress: this.state.streetAddress,
-				zipCode: this.state.zipCode
+				zipCode: this.state.zipCode,
 			})
 			.then(() => {
 				this.props.history.push('/user-profile');
@@ -47,6 +89,9 @@ class User extends Component {
 			.catch((e) => {
 				console.log(e);
 			});
+		}
+
+
 	}
 
 	render() {
@@ -108,6 +153,15 @@ class User extends Component {
 							/>
 						</div>
 					</div>
+					<div className={classes.UploadImage}>
+						<label>Profile image</label>
+						<Input
+							className={classes.InputImage}
+							onChange={this.handleImageChange}
+							type="file"
+							name="profileImage"
+						/>
+					</div>
 					<div className={classes.Button}>
 						<Button onClick={this.updateUser}>Update User</Button>
 					</div>
@@ -123,6 +177,5 @@ const mapStateToProps = (state) => {
 		userId: state.userId
 	};
 };
-
 
 export default connect(mapStateToProps)(User);

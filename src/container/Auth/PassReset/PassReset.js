@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import classes from './PassReset.module.scss';
 
-import fire from '../../../config/config';
+import config from '../../../config/config';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
 
@@ -24,7 +24,7 @@ class PassReset extends Component {
 
 	passReset(e) {
 		e.preventDefault();
-		fire
+		config.fire
 			.auth()
 			.sendPasswordResetEmail(this.state.email)
 			.then((u) => {

@@ -5,7 +5,7 @@ import classes from './Wishlist.module.scss';
 
 import StoreItem from '../../components/StoreItem/StoreItem';
 import axios from '../../axios-orders';
-import fire from '../../config/config';
+import config from '../../config/config';
 
 class Wishlist extends Component {
 	state = {
@@ -16,15 +16,16 @@ class Wishlist extends Component {
 		let storeItem;
 
 		if (this.state.wishlistItems) {
-			const wishlistItems = Object.values(this.state.wishlistItems);
+			const wishlistItems = Object.keys(this.state.wishlistItems);
 
-			storeItem = wishlistItems.map((cartItem, index) => (
+			storeItem = wishlistItems.map((wishlistKey) => (
 				<StoreItem
-					imgUrl={cartItem.imgUrl}
-					key={index}
-					brand={cartItem.brand}
-					description={cartItem.description}
-					price={cartItem.price}
+					imgUrl={this.state.wishlistItems[wishlistKey].imgUrl}
+					itemKey={wishlistKey}
+					key={wishlistKey}
+					brand={this.state.wishlistItems[wishlistKey].brand}
+					description={this.state.wishlistItems[wishlistKey].description}
+					price={this.state.wishlistItems[wishlistKey].price}
 				/>
 			));
 		}
@@ -48,7 +49,7 @@ class Wishlist extends Component {
 		}
 	}
 	componentWillUnmount() {
-		let unsubscribe = fire.auth().onAuthStateChanged((user) => {});
+		let unsubscribe = config.fire.auth().onAuthStateChanged((user) => {});
 		unsubscribe();
 	}
 }

@@ -5,7 +5,7 @@ import classes from './Register.module.scss';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/GeneralButton/Button';
-import fire from '../../../config/config';
+import config from '../../../config/config';
 
 class Register extends Component {
 	constructor(props) {
@@ -27,7 +27,7 @@ class Register extends Component {
 		let password = this.state.password;
 		let verifyPassword = this.state.verifyPassword;
 		if (password === verifyPassword) {
-			fire
+			config.fire
 				.auth()
 				.createUserWithEmailAndPassword(email, verifyPassword)
 				.then((u) => {

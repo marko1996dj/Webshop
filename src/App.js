@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import fire from './config/config';
+import config from './config/config';
+
 import './App.css';
 import Webshop from './container/Webshop/Webshop';
 import Cart from './container/Cart/Cart';
@@ -22,7 +23,7 @@ class App extends Component {
 	};
 
 	authListener() {
-		fire.auth().onAuthStateChanged((user) => {
+		config.fire.auth().onAuthStateChanged((user) => {
 			if (user) {
 				this.setState({ user: user });
 				this.setState({ userEmail: user.email });

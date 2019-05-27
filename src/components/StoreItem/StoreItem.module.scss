@@ -20,9 +20,7 @@
 	display: grid;
 	grid-template-columns: 200px;
 	grid-template-rows: 67px 67px 67px;
-	grid-template-areas: 
-		'Image  Name Name Name' 
-		'Image Description Description Description'
+	grid-template-areas: 'Image  Name Name Name' 'Image Description Description Description'
 		'Image Price Price RemoveCart';
 
 	.Image {
@@ -39,28 +37,57 @@
 			margin-block-end: 0;
 		}
 	}
-	.Price{
+	.Price {
 		padding-left: 30px;
 		font-size: 40px;
 		align-self: end;
 	}
-	.Description{
+	.Description {
 		padding-left: 30px;
 		align-self: center;
 	}
-	.RemoveCart{
-		color: red;
-		font-size: 30px;
-		align-self: end;
-		justify-self: end;
-		transition-duration: .15s;
-		&:hover{
-			color: darken(red, 10%);
-			cursor: pointer;
+	.Buttons {
+		display: flex;
+		justify-content: space-between;
+		margin-top: 25px;
+		.RemoveCart {
+			color: red;
+			font-size: 40px;
+			align-self: end;
+			justify-self: end;
+			transition-duration: .15s;
+			&:hover {
+				color: darken(red, 10%);
+				cursor: pointer;
+			}
+			&:active {
+				color: darken(red, 20%);
+				cursor: grabbing;
+			}
 		}
-		&:active{
-			color: darken(red, 20%);
-			cursor: grabbing;
+		.AddToCart {
+			padding-top: 8px;
+			height: 32px;
+			width: 40px;
+			border-radius: 50%;
+			background-color: #27a645;
+			color: white;
+			transition-duration: .15s;
+			font-size: 20px;
+			text-align: center;
+			border: none;
+			&:hover {
+				cursor: pointer;
+				background-color: darken(#27a645, 10%);
+			}
+			&:active {
+				background-color: darken(#27a645, 20%);
+				cursor: grabbing;
+			}
+			.CartIcon {
+				margin-top: 3px;
+				margin-left: -3px;
+			}
 		}
 	}
 }

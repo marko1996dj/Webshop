@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import fire from '../../../config/config';
+import config from '../../../config/config';
 import { connect } from 'react-redux';
 
 import Input from '../../UI/Input/Input';
@@ -25,7 +25,7 @@ class AddComment extends Component {
 		if (this.props.userId && !this.props.userInfo) {
 			alert('You need to fill your information before leaving a comment');
 		} else if (this.props.userId) {
-			fire
+			config.fire
 				.database()
 				.ref('item/' + this.props.id + '/comments')
 				.push({

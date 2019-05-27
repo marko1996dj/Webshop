@@ -21,10 +21,12 @@
 		background-image: linear-gradient(#f3f3f3, white);
 		padding: 30px;
 		.Img {
-			height: 150px;
-			width: 150px;
-			border: 1px solid #dedede;
-			border-radius: 50%;
+			img {
+				height: 150px;
+				width: 150px;
+				border: 1px solid #dedede;
+				border-radius: 50%;
+			}
 		}
 		.Wrapper {
 			.Wrap {
@@ -40,10 +42,10 @@
 		text-align: center;
 		button {
 			width: 150px;
-			&:hover{
+			&:hover {
 				background-color: #4267b2;
 			}
-			&:active{
+			&:active {
 				background-color: darken(#4267b2, 10%);
 				cursor: grabbing;
 			}
