@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import classes from './NavigationItem.module.scss';
 
 const NavigationItem = (props) => (
-	<li className={classes.NavigationItem}>
+	<li className={classes.NavItem}>
 		<Link to={props.link}>{props.children}</Link>
 	</li>
 );

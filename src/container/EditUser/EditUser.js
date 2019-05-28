@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import axios from '../../axios-orders';
 
 import classes from './EditUser.module.scss';
 
-import config from '../../config/config'
+import config from '../../config/config';
 import Input from '../../components/UI/Input/Input';
 import Button from '../../components/UI/Button/GeneralButton/Button';
 
@@ -20,8 +21,10 @@ class User extends Component {
 			city: '',
 			streetAddress: '',
 			zipCode: '',
-			error: '',
-			imageUrl: null
+			error: null,
+			imgUrl: null,
+			uidInfo: null,
+			imageFile: null
 		};
 	}
 
@@ -31,67 +34,65 @@ class User extends Component {
 
 	handleImageChange(e) {
 		if (e.target.files[0]) {
-			this.setState({ imageUrl: e.target.files[0] });
-			console.log(this.state.imageUrl);
+			this.setState({ imageFile: e.target.files[0] });
 		}
 	}
 
 	updateUser(e) {
 		e.preventDefault();
 
-		if(this.state.imageUrl) {
-			config.storage.ref('images/' + this.state.imageUrl.name).put(this.state.imageUrl).on(
+		if (this.state.imageFile) {
+			config.storage.ref('images/' + this.state.imageFile.name).put(this.state.imageFile).on(
 				'state_changed',
 				(snapshot) => {},
 				(error) => {
 					console.log(error);
 				},
 				() => {
-					config.storage.ref('images').child(this.state.imageUrl.name).getDownloadURL().then((url) => {
+					config.storage.ref('images').child(this.state.imageFile.name).getDownloadURL().then((url) => {
 						config.fire
-						.database()
-						.ref('users/')
-						.child(this.props.userId)
-						.set({
-							firstName: this.state.firstName,
-							lastName: this.state.lastName,
-							country: this.state.country,
-							city: this.state.city,
-							streetAddress: this.state.streetAddress,
-							zipCode: this.state.zipCode,
-							imgUrl: url
-						})
-						.then(() => {
-							this.props.history.push('/user-profile');
-						})
-						.catch((e) => {
-							console.log(e);
-						});
+							.database()
+							.ref('users/')
+							.child(this.props.userId)
+							.set({
+								firstName: this.state.firstName,
+								lastName: this.state.lastName,
+								country: this.state.country,
+								city: this.state.city,
+								streetAddress: this.state.streetAddress,
+								zipCode: this.state.zipCode,
+								imgUrl: url
+							})
+							.then(() => {
+								this.props.history.push('/user-profile');
+							})
+							.catch((e) => {
+								console.log(e);
+							});
 					});
 				}
-			)
-		}else{
+			);
+		} else {
 			config.fire
-			.database()
-			.ref('users/')
-			.child(this.props.userId)
-			.set({
-				firstName: this.state.firstName,
-				lastName: this.state.lastName,
-				country: this.state.country,
-				city: this.state.city,
-				streetAddress: this.state.streetAddress,
-				zipCode: this.state.zipCode,
-			})
-			.then(() => {
-				this.props.history.push('/user-profile');
-			})
-			.catch((e) => {
-				console.log(e);
-			});
+				.database()
+				.ref('users/')
+				.child(this.props.userId)
+				.set({
+					firstName: this.state.firstName,
+					lastName: this.state.lastName,
+					country: this.state.country,
+					city: this.state.city,
+					streetAddress: this.state.streetAddress,
+					zipCode: this.state.zipCode,
+					imgUrl: this.state.imgUrl
+				})
+				.then(() => {
+					this.props.history.push('/user-profile');
+				})
+				.catch((e) => {
+					console.log(e);
+				});
 		}
-
-
 	}
 
 	render() {
@@ -168,6 +169,27 @@ class User extends Component {
 				</form>
 			</React.Fragment>
 		);
+	}
+
+	componentDidMount() {
+		if (this.props.isLoggedIn) {
+			axios
+				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '.json')
+				.then((response) => {
+					this.setState({
+						firstName: response.data.firstName,
+						lastName: response.data.lastName,
+						city: response.data.city,
+						country: response.data.country,
+						imgUrl: response.data.imgUrl,
+						streetAddress: response.data.streetAddress,
+						zipCode: response.data.zipCode
+					});
+				})
+				.catch((e) => {
+					console.log(e);
+				});
+		}
 	}
 }
 

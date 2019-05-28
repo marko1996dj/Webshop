@@ -16,6 +16,7 @@ import NavigationItems from './components/Navigation/NavigationItems/NavigationI
 import ProductPage from './container/ProductPage/ProductPage';
 import Footer from './components/Footer/Footer';
 
+
 class App extends Component {
 	state = {
 		user: null,

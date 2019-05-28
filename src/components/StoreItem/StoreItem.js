@@ -5,6 +5,7 @@ import { withRouter } from 'react-router-dom';
 import config from '../../config/config';
 
 import classes from './StoreItem.module.scss';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faMinusCircle } from '@fortawesome/free-solid-svg-icons';
 
@@ -80,37 +81,37 @@ class StoreItem extends Component {
 		let removeButton;
 		if (this.props.history.location.pathname === '/cart') {
 			removeButton = (
-				<div onClick={this.removeCartItem} className={classes.RemoveCart}>
-					<FontAwesomeIcon icon={faMinusCircle} />
-				</div>
+				<p className="btn btn-danger" onClick={this.removeCartItem} >
+					<FontAwesomeIcon style={{fontSize: '25px'}} icon={faMinusCircle} />
+				</p>
 			);
 		} else {
 			addToCart = (
-				<div onClick={this.addToCart} className={classes.AddToCart}>
-					<FontAwesomeIcon icon={faCartPlus} />
-				</div>
+				<p className="btn btn-success">
+				<FontAwesomeIcon style={{fontSize: '25px'}} onClick={this.addToCart} icon={faCartPlus} />
+			</p>
 			);
 			removeButton = (
-				<div onClick={this.removeWishlistItem} className={classes.RemoveCart}>
-					<FontAwesomeIcon className={classes.CartIcon} icon={faMinusCircle} />
-				</div>
+				<p className="btn btn-danger" onClick={this.removeWishlistItem} >
+					<FontAwesomeIcon style={{fontSize: '25px'}} icon={faMinusCircle} />
+				</p>
 			);
 		}
 		return (
-			<div className={classes.StoreItem}>
+			<div className={classes.StoreItem} >
 				<div className={classes.Image}>
 					<img src={this.props.imgUrl} alt={this.props.imgUrl} />
 				</div>
-				<div className={classes.Name}>
+				<div className={classes.Name} >
 					<h3>{this.props.brand}</h3>
 				</div>
-				<div className={classes.Description}>
+				<div className={classes.Description} >
 					<p>{this.props.description}</p>
 				</div>
-				<div className={classes.Price}>
+				<div className={classes.Price} >
 					<p>{this.props.price}$</p>
 				</div>
-				<div className={classes.Buttons}>
+				<div className={classes.Buttons} >
 					{removeButton}
 					{addToCart}
 				</div>

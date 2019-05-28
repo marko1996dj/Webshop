@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
 import config from '../../../config/config';
 
-import classes from './StoreItem.module.scss';
 
 class StoreItem extends Component {
 	state = {
@@ -71,32 +70,21 @@ class StoreItem extends Component {
 	};
 
 	render() {
-		const style = {
-			height: '165px',
-			width: 'auto'
-		};
 
 		return (
-			<div className={classes.StoreItem}>
-				<div className={classes.Image}>
-					<img style={style} src={this.props.imgUrl} alt={this.props.imgUrl} />
-				</div>
-				<div className={classes.Name}>
-					<h3>{this.props.brand}</h3>
-				</div>
-				<div onClick={this.productInfo} className={classes.Description}>
-					<Link to="/product-page">Click here for more info.</Link>
-				</div>
-				<div className={classes.Price}>
-					<p>{this.props.price}$</p>
-				</div>
-				<div className={classes.Icons}>
-					<div className={classes.Cart}>
-						<FontAwesomeIcon onClick={this.addToCart} className={classes.CartIcon} icon={faCartPlus} />
-					</div>
-					<div className={classes.Heart}>
-						<FontAwesomeIcon onClick={this.addToWishlist} className={classes.HeartIcon} icon={faHeart} />
-					</div>
+			<div style={{width: '18rem'}} className="card m-3">
+				<img style={{maxHeight: '190px', width: 'auto'}} className="card-img-top" src={this.props.imgUrl} alt={this.props.imgUrl} />
+				<div className="card-body">
+					<h5 className="card-title">{this.props.brand}</h5>
+					<p onClick={this.productInfo} className="card-text">
+						<Link to="/product-page">Click here for more info.</Link>
+					</p>
+					<p style={{marginRight: '160px', marginTop: '30px'}} className="btn btn-success">
+						<FontAwesomeIcon onClick={this.addToCart} icon={faCartPlus} />
+					</p>
+					<p style={{marginTop: '30px'}} className="btn btn-danger">
+						<FontAwesomeIcon onClick={this.addToWishlist} icon={faHeart} />
+					</p>
 				</div>
 			</div>
 		);

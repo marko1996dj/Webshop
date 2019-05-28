@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import classes from './Checkbox.module.scss';
 class Checkbox extends Component {
 	state = {
 		isChecked: false
@@ -21,7 +20,7 @@ class Checkbox extends Component {
 		const { isChecked } = this.state;
 
 		return (
-			<div className={classes.Checkbox}>
+			<div>
 				<label>
 					<input type="checkbox" value={label} checked={isChecked} onChange={this.toggleCheckboxChange} />
 					{label}

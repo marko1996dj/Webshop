@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 
-import classes from './StoreItems.module.scss';
 import StoreItem from './StoreItem/StoreItem';
 import Spinner from '../../components/UI/Spinner/Spinner';
 
@@ -30,7 +29,7 @@ class StoreItems extends Component {
 		}
 		if (this.state.loading) {
 			storeItem = (
-				<div className={classes.Spinner}>
+				<div>
 					<Spinner />
 				</div>
 			);
@@ -76,7 +75,7 @@ class StoreItems extends Component {
 				));
 		}
 
-		return <div className={classes.StoreItems}>{storeItem}</div>;
+		return <div style={{display: 'flex', flexWrap:'wrap'}}>{storeItem}</div>;
 	}
 	componentDidMount() {
 		axios.get('https://webshop-9a548.firebaseio.com/item.json').then((response) => {

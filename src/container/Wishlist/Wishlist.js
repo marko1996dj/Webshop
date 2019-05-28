@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classes from './Wishlist.module.scss';
 
 import StoreItem from '../../components/StoreItem/StoreItem';
+
 import axios from '../../axios-orders';
 import config from '../../config/config';
 
@@ -13,6 +14,7 @@ class Wishlist extends Component {
 	};
 
 	render() {
+
 		let storeItem;
 
 		if (this.state.wishlistItems) {

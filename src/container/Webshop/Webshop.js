@@ -4,7 +4,6 @@ import CheckboxList from '../../components/CheckboxList/CheckboxList';
 import StoreItems from '../StoreItems/StoreItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
-
 import classes from './Webshop.module.scss';
 
 class Webshop extends Component {
