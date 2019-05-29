@@ -71,26 +71,24 @@ class StoreItem extends Component {
 
 	render() {
 		return (
-			<div className={classes.Card + " " + 'card m-3'}>
-				<img
-					className="card-img-top"
-					src={this.props.imgUrl}
-					alt={this.props.imgUrl}
-				/>
+			<div className={classes.Card + ' ' + 'card m-3'}>
+				<img className="card-img-top" src={this.props.imgUrl} alt={this.props.imgUrl} />
 				<div className="card-body">
 					<h5 className="card-title">{this.props.brand}</h5>
 					<p onClick={this.productInfo} className="card-text">
 						<Link to="/product-page">Click here for more info.</Link>
 					</p>
-					<div style={{display: 'flex', justifyContent: 'space-between', marginTop: '30px'}} className={classes.Buttons}>
-					<p  className={classes.CartButton + ' ' + "btn btn-success"}>
-						<FontAwesomeIcon onClick={this.addToCart} icon={faCartPlus} />
-					</p>
-					<p className={classes.WishlistButton + ' ' + "btn btn-danger"}>
-						<FontAwesomeIcon onClick={this.addToWishlist} icon={faHeart} />
-					</p>
+					<div
+						style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}
+						className={classes.Buttons}
+					>
+						<p onClick={this.addToCart} className={classes.CartButton + ' ' + 'btn btn-success'}>
+							<FontAwesomeIcon icon={faCartPlus} />
+						</p>
+						<p onClick={this.addToWishlist} className={classes.WishlistButton + ' ' + 'btn btn-danger'}>
+							<FontAwesomeIcon icon={faHeart} />
+						</p>
 					</div>
-
 				</div>
 			</div>
 		);

@@ -81,37 +81,37 @@ class StoreItem extends Component {
 		let removeButton;
 		if (this.props.history.location.pathname === '/cart') {
 			removeButton = (
-				<p className="btn btn-danger" onClick={this.removeCartItem} >
-					<FontAwesomeIcon style={{fontSize: '25px'}} icon={faMinusCircle} />
+				<p className="btn btn-danger" onClick={this.removeCartItem}>
+					<FontAwesomeIcon style={{ fontSize: '25px' }} icon={faMinusCircle} />
 				</p>
 			);
 		} else {
 			addToCart = (
-				<p className="btn btn-success">
-				<FontAwesomeIcon style={{fontSize: '25px'}} onClick={this.addToCart} icon={faCartPlus} />
-			</p>
+				<p onClick={this.addToCart} className="btn btn-success">
+					<FontAwesomeIcon style={{ fontSize: '25px' }} icon={faCartPlus} />
+				</p>
 			);
 			removeButton = (
-				<p className="btn btn-danger" onClick={this.removeWishlistItem} >
-					<FontAwesomeIcon style={{fontSize: '25px'}} icon={faMinusCircle} />
+				<p className="btn btn-danger" onClick={this.removeWishlistItem}>
+					<FontAwesomeIcon style={{ fontSize: '25px' }} icon={faMinusCircle} />
 				</p>
 			);
 		}
 		return (
-			<div className={classes.StoreItem} >
+			<div className={classes.StoreItem}>
 				<div className={classes.Image}>
 					<img src={this.props.imgUrl} alt={this.props.imgUrl} />
 				</div>
-				<div className={classes.Name} >
+				<div className={classes.Name}>
 					<h3>{this.props.brand}</h3>
 				</div>
-				<div className={classes.Description} >
+				<div className={classes.Description}>
 					<p>{this.props.description}</p>
 				</div>
-				<div className={classes.Price} >
+				<div className={classes.Price}>
 					<p>{this.props.price}$</p>
 				</div>
-				<div className={classes.Buttons} >
+				<div className={classes.Buttons}>
 					{removeButton}
 					{addToCart}
 				</div>
