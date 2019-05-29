@@ -1,0 +1,19 @@
+@import '../../../scss/mixins';
+
+.Card {
+	width: 18rem;
+	img {
+		height: 220px;
+		width: auto;
+		border-bottom: 1px solid #dedede;
+	}
+}
+
+@include phone {
+	.Card {
+		width: 95%;
+		img {
+			height: 300px;
+		}
+	}
+}

@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .StoreItem {
 	border-bottom: 1px solid #dedede;
 	padding: 20px;
@@ -89,5 +91,11 @@
 				margin-left: -3px;
 			}
 		}
+	}
+}
+
+@include phone {
+	.StoreItem {
+
 	}
 }

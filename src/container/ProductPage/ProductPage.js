@@ -76,7 +76,7 @@ class ProductPage extends Component {
 					<div className={classes.Image}>
 						<img src={productInfo.imgUrl} alt={productInfo.imgUrl} />
 					</div>
-					<div>
+					<div className={classes.BPWrapper}>
 						<div className={classes.Brand}>
 							<h1>{productInfo.brand}</h1>
 						</div>

@@ -1,4 +1,14 @@
+@import '../../../scss/mixins';
+
 .NavigationItems {
     padding: 30px 16px;
     border-bottom: 1px solid #dedede;
 }
+
+
+@include phone {
+    .NavigationItems {
+        width: 100%;
+    }
+}
+

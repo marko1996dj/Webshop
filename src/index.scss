@@ -1,3 +1,5 @@
+@import './scss/mixins';
+
 body,
 html {
 	margin: 0;
@@ -12,3 +14,39 @@ html {
 code {
 	font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
+
+
+@include breakpoint (largeDesktop) {
+	body,html{
+		padding: 0 9%;
+	}
+}
+@include breakpoint (desktop) {
+	body,html{
+		padding: 0 6%;
+	}
+}
+
+@include breakpoint (smallDesktop) {
+	body,html{
+		padding: 0 4%;
+	}
+}
+
+@include breakpoint (laptop) {
+	body,html {
+		padding: 0 2%;
+	}
+}
+
+@include breakpoint (MDPIlaptop) {
+	body,html {
+		padding: 0 4%;
+	}
+}
+@include phone{
+	body,html{
+		padding: 0;
+	}
+}
+

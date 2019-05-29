@@ -1,0 +1,44 @@
+@mixin phone () {
+	@media (max-width: 767px) and (-webkit-min-device-pixel-ratio: 2), (max-width: 76px) and (min-resolution: 192dpi) {
+		@content;
+	}
+}
+
+@mixin column($columns, $margin) {
+	width: calc(#{100% / $columns} - #{$margin * ($columns - 1) / $columns});
+	margin-right: $margin;
+
+	&:last-child {
+		margin-right: 0;
+	}
+}
+
+@mixin breakpoint($point) {
+	@if $point == smallDesktop {
+		@media (max-width: 1480px) {
+			@content;
+		}
+	} @else if $point == largeDesktop {
+		@media (max-width: 1880px) {
+			@content;
+		}
+	} @else if $point == desktop {
+		@media (max-width: 1710px) {
+			@content;
+		}
+	} @else if $point == laptop {
+		@media (max-width: 1355px) {
+			@content;
+		}
+	}
+	@else if $point == MDPIlaptop {
+		@media (max-width: 1250px) {
+			@content;
+		}
+	}
+	@else if $point == tablet {
+		@media (max-width: 1050px) {
+			@content;
+		}
+	}
+}

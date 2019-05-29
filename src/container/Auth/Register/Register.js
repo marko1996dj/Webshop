@@ -33,6 +33,7 @@ class Register extends Component {
 				.then((u) => {
 					this.setState({ isLoggedIn: true });
 					this.props.onIsLoggedIn(this.state.isLoggedIn);
+					this.props.onUserId(u.user.uid);
 					this.props.history.push('/edit-user');
 				})
 				.catch((error) => {
@@ -103,7 +104,8 @@ class Register extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn })
+		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }),
+		onUserId: (userId) => dispatch ({type: 'ADD_USER_ID', userId: userId})
 	};
 };
 

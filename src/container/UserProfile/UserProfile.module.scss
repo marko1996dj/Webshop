@@ -1,3 +1,6 @@
+@import '../../scss/mixins';
+
+
 .UserProfile {
 	background-color: white;
 	margin: 100px auto 0 auto;
@@ -53,5 +56,26 @@
 	}
 	.Spinner {
 		margin: 175px;
+	}
+}
+
+
+
+@include phone {
+	.UserProfile{
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+		border: none;
+		background-color: white;
+		.Form {
+			background-image: none;
+		}
+		.Button{
+			margin-bottom: 30px;
+		}
 	}
 }

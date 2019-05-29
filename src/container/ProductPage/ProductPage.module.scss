@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .ProductPage {
 	width: 80%;
 	margin: 100px auto;
@@ -55,6 +57,41 @@
 			&:active {
 				background-color: darken(#fa8072, 10%);
 				cursor: grabbing;
+			}
+		}
+	}
+}
+
+
+@include phone {
+	.ProductPage {
+		width: 95%;
+		margin: 0;
+		-webkit-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+		-moz-box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, 0.75);
+		box-shadow: 0px 00px 0px 0px rgba(0, 0, 0, 0.75);
+		border: none;
+		.Wrapper{
+			display: block;
+			.BPWrapper{
+				display: flex;
+				.Brand{
+					margin: 0 30px 0 0;
+				}
+				.Price{
+					margin: 0;
+				}
+			}
+		}
+		.Buttons {
+			margin: 30px 0;
+			display: flex;
+			justify-content: space-between;
+			.Cart{
+				margin: 0;
+			}
+			.Wishlist{
+				margin: 0;
 			}
 		}
 	}

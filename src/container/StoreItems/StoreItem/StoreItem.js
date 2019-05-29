@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import classes from './StoreItem.module.scss';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCartPlus, faHeart } from '@fortawesome/free-solid-svg-icons';
 import config from '../../../config/config';
-
 
 class StoreItem extends Component {
 	state = {
@@ -70,21 +70,27 @@ class StoreItem extends Component {
 	};
 
 	render() {
-
 		return (
-			<div style={{width: '18rem'}} className="card m-3">
-				<img style={{maxHeight: '190px', width: 'auto'}} className="card-img-top" src={this.props.imgUrl} alt={this.props.imgUrl} />
+			<div className={classes.Card + " " + 'card m-3'}>
+				<img
+					className="card-img-top"
+					src={this.props.imgUrl}
+					alt={this.props.imgUrl}
+				/>
 				<div className="card-body">
 					<h5 className="card-title">{this.props.brand}</h5>
 					<p onClick={this.productInfo} className="card-text">
 						<Link to="/product-page">Click here for more info.</Link>
 					</p>
-					<p style={{marginRight: '160px', marginTop: '30px'}} className="btn btn-success">
+					<div style={{display: 'flex', justifyContent: 'space-between', marginTop: '30px'}} className={classes.Buttons}>
+					<p  className={classes.CartButton + ' ' + "btn btn-success"}>
 						<FontAwesomeIcon onClick={this.addToCart} icon={faCartPlus} />
 					</p>
-					<p style={{marginTop: '30px'}} className="btn btn-danger">
+					<p className={classes.WishlistButton + ' ' + "btn btn-danger"}>
 						<FontAwesomeIcon onClick={this.addToWishlist} icon={faHeart} />
 					</p>
+					</div>
+
 				</div>
 			</div>
 		);

@@ -187,7 +187,15 @@ class User extends Component {
 					});
 				})
 				.catch((e) => {
-					console.log(e);
+					this.setState({
+						firstName: '',
+						lastName: '',
+						cirt: '',
+						country: '',
+						imgUrl: '',
+						streetAddress: '',
+						zipCode: ''
+					});
 				});
 		}
 	}

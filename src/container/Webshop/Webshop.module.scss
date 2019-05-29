@@ -1,3 +1,5 @@
+@import '../../scss/mixins';
+
 .Webshop {
 	display: flex;
 }
@@ -7,6 +9,7 @@
 	color: #007aff;
 	font-size: 50px;
 	margin-left: 150px;
+	margin-bottom: 70px;
 	.Previous,
 	.Next {
 		transition-duration: .15s;
@@ -18,5 +21,15 @@
 			color: darken(#007aff, 20%);
 			cursor: grabbing;
 		}
+	}
+}
+
+@include phone {
+	.Webshop {
+		display: block;
+	}
+	.Buttons {
+		margin: 0;
+		margin-bottom: 70px;
 	}
 }
