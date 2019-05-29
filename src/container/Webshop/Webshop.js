@@ -31,7 +31,7 @@ class Webshop extends Component {
 				top: 0,
 				left: 0,
 				behavior: 'smooth'
-			})
+			});
 		}
 	};
 
@@ -42,6 +42,11 @@ class Webshop extends Component {
 				firstItem: prevState.firstItem - 6,
 				lastItem: prevState.lastItem - 6
 			}));
+			window.scrollTo({
+				top: 0,
+				left: 0,
+				behavior: 'smooth'
+			});
 		}
 	};
 
