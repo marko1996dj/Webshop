@@ -18,10 +18,9 @@ class Login extends Component {
 			email: '',
 			password: '',
 			wrongPasswordCounter: 0,
-			error: '',
+			error: null,
 			isLoggedIn: false,
-			userId: '',
-			user: ''
+			userId: ''
 		};
 	}
 
@@ -29,20 +28,20 @@ class Login extends Component {
 		e.preventDefault();
 		config.fire
 			.auth()
-			.signInWithEmailAndPassword(this.state.email, this.state.password)
+			.signInWithEmailAndPassword(this.state.email, this.state.password) //auth with email and password
 			.then((user) => {
-				this.setState({ isLoggedIn: true });
-				this.setState({ userId: user.user.uid });
+				this.setState({ isLoggedIn: true }); //if successful changing isLoggedIn state, setting userId,
+				this.setState({ userId: user.user.uid }); //dispatching userId and isLoggedIn to store
 				this.props.onIsLoggedIn(this.state.isLoggedIn);
 				this.props.onAddUserId(this.state.userId);
 				axios
 					.get('https://webshop-9a548.firebaseio.com/users/' + this.state.userId + '.json')
 					.then((response) => {
-						this.setState({ user: response.data });
-						this.props.onAddingUserInfo(response.data);
+						this.setState({ error: null }); //clearing error message
+						this.props.onAddingUserInfo(response.data); //dispatching everything about user to store
+						console.log(response.data);
 						this.props.history.push('/webshop');
 					});
-				
 			})
 			.catch((error) => {
 				let errorMessage = error.message;
@@ -51,7 +50,7 @@ class Login extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ [e.target.name]: e.target.value }); //taking input field value and storing it in state
 	}
 
 	render() {
@@ -103,9 +102,9 @@ class Login extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }),
-		onAddUserId: (userId) => dispatch({ type: 'ADD_USER_ID', userId: userId }),
-		onAddingUserInfo: (userInfo) => dispatch({ type: 'ADD_USER_INFO', userInfo: userInfo })
+		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }), //dispatching isLoggedIn state
+		onAddUserId: (userId) => dispatch({ type: 'ADD_USER_ID', userId: userId }), //dispatching userId
+		onAddingUserInfo: (userInfo) => dispatch({ type: 'ADD_USER_INFO', userInfo: userInfo }) //dispatching user info (basic info, cart items, wish list items)
 	};
 };
 

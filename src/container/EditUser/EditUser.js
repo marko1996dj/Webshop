@@ -29,12 +29,12 @@ class User extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ [e.target.name]: e.target.value }); //store input value to state
 	}
 
 	handleImageChange(e) {
 		if (e.target.files[0]) {
-			this.setState({ imageFile: e.target.files[0] });
+			this.setState({ imageFile: e.target.files[0] }); //store file value to state
 		}
 	}
 
@@ -42,6 +42,7 @@ class User extends Component {
 		e.preventDefault();
 
 		if (this.state.imageFile) {
+			//if image file is selected upload the image
 			config.storage.ref('images/' + this.state.imageFile.name).put(this.state.imageFile).on(
 				'state_changed',
 				(snapshot) => {},
@@ -50,10 +51,11 @@ class User extends Component {
 				},
 				() => {
 					config.storage.ref('images').child(this.state.imageFile.name).getDownloadURL().then((url) => {
+						//get download image url
 						config.fire
 							.database()
 							.ref('users/')
-							.child(this.props.userId)
+							.child(this.props.userId) //store url to user profile
 							.set({
 								firstName: this.state.firstName,
 								lastName: this.state.lastName,
@@ -61,7 +63,7 @@ class User extends Component {
 								city: this.state.city,
 								streetAddress: this.state.streetAddress,
 								zipCode: this.state.zipCode,
-								imgUrl: url
+								imgUrl: url // set user info
 							})
 							.then(() => {
 								this.props.history.push('/user-profile');
@@ -73,6 +75,7 @@ class User extends Component {
 				}
 			);
 		} else {
+			//if image is not selected set user info without it
 			config.fire
 				.database()
 				.ref('users/')
@@ -176,6 +179,7 @@ class User extends Component {
 			axios
 				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '.json')
 				.then((response) => {
+					//get previous user info and store it in state
 					this.setState({
 						firstName: response.data.firstName,
 						lastName: response.data.lastName,
@@ -187,6 +191,7 @@ class User extends Component {
 					});
 				})
 				.catch((e) => {
+					//if there is no user info in db set as ''
 					this.setState({
 						firstName: '',
 						lastName: '',
@@ -203,8 +208,8 @@ class User extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.isLoggedIn,
-		userId: state.userId
+		isLoggedIn: state.isLoggedIn, //get isLoggedIn store state
+		userId: state.userId //get isLoggedIn store state
 	};
 };
 

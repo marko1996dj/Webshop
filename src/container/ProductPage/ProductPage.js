@@ -18,10 +18,12 @@ class ProductPage extends Component {
 	}
 
 	addToCart = () => {
+		//add item to cart
 		config.fire
 			.database()
 			.ref('users/' + this.props.userId + '/cartItems')
 			.push({
+				//push product info to users db
 				brand: this.props.productInfo.brand,
 				description: this.props.productInfo.description,
 				price: this.props.productInfo.price,
@@ -36,10 +38,12 @@ class ProductPage extends Component {
 	};
 
 	addToWishlist = () => {
+		//add item to wishlist
 		config.fire
 			.database()
 			.ref('users/' + this.props.userId + '/wishlistItems')
 			.push({
+				//push product info to users db
 				brand: this.props.productInfo.brand,
 				description: this.props.productInfo.description,
 				price: this.props.productInfo.price,
@@ -57,8 +61,12 @@ class ProductPage extends Component {
 		let commentList;
 
 		if (this.state.comments) {
+			//if there are comments
 			const comments = Object.values(this.state.comments);
-			commentList = comments.map((comment, index) => (
+			commentList = comments.map((
+				comment,
+				index //map each comment and send values as props to CommentList
+			) => (
 				<CommentList
 					firstName={comment.firstName}
 					lastName={comment.lastName}
@@ -106,7 +114,7 @@ class ProductPage extends Component {
 		axios
 			.get('https://webshop-9a548.firebaseio.com/item/' + this.props.productInfo.id + '/comments.json')
 			.then((response) => {
-				this.setState({ comments: response.data });
+				this.setState({ comments: response.data }); //store comments of product if any to this.state.comments
 			})
 			.catch((e) => {
 				console.log(e);
@@ -116,9 +124,8 @@ class ProductPage extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		productInfo: state.productInfo,
-		isLoggedIn: state.isLoggedIn,
-		userId: state.userId
+		productInfo: state.productInfo, // productInfo store state
+		userId: state.userId //userId store state
 	};
 };
 

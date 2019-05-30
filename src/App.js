@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, withRouter } from 'react-router-dom';
 
-import config from './config/config';
-
 import './App.css';
 import Webshop from './container/Webshop/Webshop';
 import Cart from './container/Cart/Cart';
@@ -16,30 +14,11 @@ import NavigationItems from './components/Navigation/NavigationItems/NavigationI
 import ProductPage from './container/ProductPage/ProductPage';
 import Footer from './components/Footer/Footer';
 
-
-
 class App extends Component {
-	state = {
-		user: null,
-		userEmail: null
-	};
-
-	authListener() {
-		config.fire.auth().onAuthStateChanged((user) => {
-			if (user) {
-				this.setState({ user: user });
-				this.setState({ userEmail: user.email });
-			} else {
-				this.setState({ user: null });
-			}
-		});
-	}
-
 	render() {
 		return (
 			<React.Fragment>
 				<NavigationItems />
-				{/* <HashRouter basename="/"> */}
 				<Switch>
 					<Route path="/" exact component={Webshop} />
 					<Route path="/webshop" component={Webshop} />
@@ -47,19 +26,14 @@ class App extends Component {
 					<Route path="/wishlist" component={Wishlist} />
 					<Route path="/register" component={Register} />
 					<Route path="/password-reset" component={PassReset} />
-					<Route path="/edit-user" exact component={EditUser} />
+					<Route path="/edit-user" component={EditUser} />
 					<Route path="/user-profile" component={UserProfile} />
-					<Route path="/login" render={() => <Login />} />
+					<Route path="/login" component={Login} />
 					<Route path="/product-page" component={ProductPage} />
 				</Switch>
-				{/* </HashRouter> */}
 				<Footer />
 			</React.Fragment>
 		);
-	}
-
-	componentDidMount() {
-		this.authListener();
 	}
 }
 

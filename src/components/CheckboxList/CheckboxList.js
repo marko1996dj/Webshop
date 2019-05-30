@@ -33,7 +33,7 @@ class CheckboxList extends Component {
 		this.props.onChange(this.state.type);
 	};
 
-	createCheckbox = (label) => <Checkbox label={label} handleCheckboxChange={this.toggleCheckbox} key={label} />;
+	createCheckbox = (label) => <Checkbox label={label} handleCheckboxChange={this.toggleCheckbox} key={label} />; //handleCheckBoxChange  retrieves label that is selected
 
 	createCheckboxes = () => checkboxItems.map(this.createCheckbox);
 
@@ -42,8 +42,8 @@ class CheckboxList extends Component {
 			border: '1px solid #dedede',
 			borderRadius: '5px',
 			maxHeight: '350px',
-			padding: '10px',
-		}
+			padding: '10px'
+		};
 		return (
 			<form className="m-3" style={style} onSubmit={this.handleFormSubmit}>
 				{this.createCheckboxes()}

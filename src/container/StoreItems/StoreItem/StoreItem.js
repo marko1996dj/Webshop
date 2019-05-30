@@ -15,9 +15,10 @@ class StoreItem extends Component {
 
 	addToCart = () => {
 		if (this.props.isLoggedIn) {
+			//if user is logged in send specific item to his store
 			config.fire
 				.database()
-				.ref('users/' + this.props.userId + '/cartItems')
+				.ref('users/' + this.props.userId + '/cartItems') //targeting user specific cart items
 				.push({
 					brand: this.props.brand,
 					description: this.props.description,
@@ -37,9 +38,10 @@ class StoreItem extends Component {
 
 	addToWishlist = () => {
 		if (this.props.isLoggedIn) {
+			//if user is logged in send specific item to his wishlist
 			config.fire
 				.database()
-				.ref('users/' + this.props.userId + '/wishlistItems')
+				.ref('users/' + this.props.userId + '/wishlistItems') //targeting user specific wishlist items
 				.push({
 					brand: this.props.brand,
 					description: this.props.description,
@@ -66,7 +68,7 @@ class StoreItem extends Component {
 			imgUrl: this.props.imgUrl,
 			id: this.props.uniqueId
 		};
-		this.props.onAddProductInfo(productInfo);
+		this.props.onAddProductInfo(productInfo); //individual product info dispatch to store
 	};
 
 	render() {
@@ -97,14 +99,14 @@ class StoreItem extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.isLoggedIn,
-		userId: state.userId
+		isLoggedIn: state.isLoggedIn, //isLoggedIn store state
+		userId: state.userId // get userId from store state
 	};
 };
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onAddProductInfo: (productInfo) => dispatch({ type: 'ADD_PRODUCT_INFO', productInfo: productInfo })
+		onAddProductInfo: (productInfo) => dispatch({ type: 'ADD_PRODUCT_INFO', productInfo: productInfo }) //dispatch specific product info to store
 	};
 };
 

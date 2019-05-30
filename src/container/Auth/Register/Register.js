@@ -17,7 +17,7 @@ class Register extends Component {
 			password: '',
 			verifyPassword: '',
 			error: '',
-			isLoggedIn: this.props.isLoggedIn
+			isLoggedIn: this.props.isLoggedIn //isLoggedIn store state
 		};
 	}
 
@@ -27,13 +27,14 @@ class Register extends Component {
 		let password = this.state.password;
 		let verifyPassword = this.state.verifyPassword;
 		if (password === verifyPassword) {
+			//if passwords match
 			config.fire
 				.auth()
 				.createUserWithEmailAndPassword(email, verifyPassword)
 				.then((u) => {
 					this.setState({ isLoggedIn: true });
-					this.props.onIsLoggedIn(this.state.isLoggedIn);
-					this.props.onUserId(u.user.uid);
+					this.props.onIsLoggedIn(this.state.isLoggedIn); //dispatching isLoggedIn state
+					this.props.onUserId(u.user.uid); //dispatching user id
 					this.props.history.push('/edit-user');
 				})
 				.catch((error) => {
@@ -41,12 +42,12 @@ class Register extends Component {
 					this.setState({ error: errorMessage });
 				});
 		} else {
-			this.setState({ error: 'Passwords do not match!' });
+			this.setState({ error: 'Passwords do not match!' }); //if password do not match
 		}
 	}
 
 	handleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ [e.target.name]: e.target.value }); //storin input value to state
 	}
 
 	render() {
@@ -104,8 +105,8 @@ class Register extends Component {
 
 const mapDispatchToProps = (dispatch) => {
 	return {
-		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }),
-		onUserId: (userId) => dispatch ({type: 'ADD_USER_ID', userId: userId})
+		onIsLoggedIn: (isLoggedIn) => dispatch({ type: 'IS_LOGGED_IN', isLoggedIn: isLoggedIn }), //dispatching isLoggedIn state to store
+		onUserId: (userId) => dispatch({ type: 'ADD_USER_ID', userId: userId }) //dispatching user id state to store
 	};
 };
 

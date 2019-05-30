@@ -19,7 +19,7 @@ class PassReset extends Component {
 	}
 
 	handleChange(e) {
-		this.setState({ [e.target.name]: e.target.value });
+		this.setState({ [e.target.name]: e.target.value }); //storing input value to state
 	}
 
 	passReset(e) {
@@ -27,11 +27,11 @@ class PassReset extends Component {
 		config.fire
 			.auth()
 			.sendPasswordResetEmail(this.state.email)
-			.then((u) => {
+			.then(() => {
 				alert('An email has been sent to your email address with further instructions');
 				this.props.history.push('/login');
 			})
-			.catch((error) => {
+			.catch(() => {
 				this.setState({ error: 'There is no user associated with this email address' });
 			});
 	}

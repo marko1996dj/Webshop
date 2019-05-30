@@ -20,6 +20,7 @@ class UserProfile extends PureComponent {
 	renderResults() {
 		const { uidInfo, loading } = this.state;
 		if (uidInfo) {
+			// if info is stored in uidInfo
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Heading}>
@@ -27,7 +28,7 @@ class UserProfile extends PureComponent {
 					</div>
 					<div className={classes.Form}>
 						<div className={classes.Img}>
-							<img src={this.state.uidInfo.imgUrl} alt="slika"></img>
+							<img src={this.state.uidInfo.imgUrl} alt="slika" />
 						</div>
 						<div className={classes.Info}>
 							<div className={classes.Wrapper}>
@@ -62,26 +63,11 @@ class UserProfile extends PureComponent {
 			return userIdInfo;
 		}
 		if (loading) {
+			//if axios request is not yet finished
 			let userIdInfo = (
 				<div className={classes.UserProfile}>
 					<div className={classes.Spinner}>
 						<Spinner />
-					</div>
-				</div>
-			);
-			return userIdInfo;
-		}
-		if (this.props.isLoggedIn) {
-			let userIdInfo = (
-				<div className={classes.UserProfile}>
-					<div className={classes.Heading}>
-						<h1>User profile</h1>
-					</div>
-					<div className={classes.Form}>
-						<h3>Please edit your profile</h3>
-					</div>
-					<div className={classes.Button}>
-						<Button onClick={this.editProfileHandler}>Edit profile</Button>
 					</div>
 				</div>
 			);
@@ -98,10 +84,12 @@ class UserProfile extends PureComponent {
 			axios
 				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '.json')
 				.then((response) => {
+					//getting user info and storing it in uidInfo
 					this.setState({ uidInfo: response.data });
 					this.setState({ loading: false });
 				})
 				.catch((e) => {
+					this.setState({ loading: false });
 					console.log(e);
 				});
 		}
@@ -110,7 +98,7 @@ class UserProfile extends PureComponent {
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.isLoggedIn,
+		isLoggedIn: state.isLoggedIn, //isLoggedIn, userId store state
 		userId: state.userId
 	};
 };

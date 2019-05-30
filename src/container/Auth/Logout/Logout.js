@@ -10,8 +10,8 @@ class Logout extends Component {
 		super(props);
 		this.logout = this.logout.bind(this);
 		this.state = {
-			isLoggedIn: this.props.isLoggedIn,
-		}
+			isLoggedIn: this.props.isLoggedIn //isLoggedIn store state
+		};
 	}
 
 	logout(e) {
@@ -20,7 +20,7 @@ class Logout extends Component {
 			.auth()
 			.signOut()
 			.then((u) => {
-				this.props.onIsLoggedOut(!this.state.isLoggedIn)
+				this.props.onIsLoggedOut(!this.state.isLoggedIn); //changing isLoggedIn state
 				this.props.history.push('/login');
 			})
 			.catch((error) => {
@@ -38,16 +38,16 @@ class Logout extends Component {
 	}
 }
 
-const mapDispatchToProps = dispatch => {
-	return{
-		onIsLoggedOut: (isLoggedOut) => dispatch({type: 'IS_LOGGED_OUT', isLoggedOut: isLoggedOut}),
-	};
-}
-
-const mapStateToProps = state => {
+const mapDispatchToProps = (dispatch) => {
 	return {
-		isLoggedIn: state.isLoggedIn
+		onIsLoggedOut: (isLoggedOut) => dispatch({ type: 'IS_LOGGED_OUT', isLoggedOut: isLoggedOut }) //dispatching isLoggedIn state to store
 	};
-}
+};
+
+const mapStateToProps = (state) => {
+	return {
+		isLoggedIn: state.isLoggedIn //taking isLoggedIn state from store
+	};
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Logout));

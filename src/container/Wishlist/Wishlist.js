@@ -14,13 +14,15 @@ class Wishlist extends Component {
 	};
 
 	render() {
-
 		let storeItem;
 
 		if (this.state.wishlistItems) {
+			//if there are wishlist items
 			const wishlistItems = Object.keys(this.state.wishlistItems);
 
-			storeItem = wishlistItems.map((wishlistKey) => (
+			storeItem = wishlistItems.map((
+				wishlistKey //map them and send their info via props
+			) => (
 				<StoreItem
 					imgUrl={this.state.wishlistItems[wishlistKey].imgUrl}
 					itemKey={wishlistKey}
@@ -40,26 +42,23 @@ class Wishlist extends Component {
 	}
 	componentDidMount() {
 		if (this.props.isLoggedIn) {
+			//if user is logged in
 			axios
 				.get('https://webshop-9a548.firebaseio.com/users/' + this.props.userId + '/wishlistItems.json')
 				.then((response) => {
-					this.setState({ wishlistItems: response.data });
+					this.setState({ wishlistItems: response.data }); //take user specific wishlist items and store them in this.state.wishlistItems
 				})
 				.catch((e) => {
 					console.log(e);
 				});
 		}
 	}
-	componentWillUnmount() {
-		let unsubscribe = config.fire.auth().onAuthStateChanged((user) => {});
-		unsubscribe();
-	}
 }
 
 const mapStateToProps = (state) => {
 	return {
-		isLoggedIn: state.isLoggedIn,
-		userId: state.userId
+		isLoggedIn: state.isLoggedIn, // isLoggedIn store state
+		userId: state.userId // userId store state
 	};
 };
 

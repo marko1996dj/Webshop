@@ -25,10 +25,12 @@ class AddComment extends Component {
 		if (this.props.userId && !this.props.userInfo) {
 			alert('You need to fill your information before leaving a comment');
 		} else if (this.props.userId) {
+			//if user is logged in
 			config.fire
 				.database()
 				.ref('item/' + this.props.id + '/comments')
 				.push({
+					// push comment to specific item
 					firstName: this.props.userInfo.firstName,
 					lastName: this.props.userInfo.lastName,
 					title: this.state.title,
@@ -42,6 +44,7 @@ class AddComment extends Component {
 					console.log(e);
 				});
 		} else {
+			// if user is not logged in
 			alert('To leave a comment you need to be logged in!');
 		}
 	};
@@ -86,8 +89,8 @@ class AddComment extends Component {
 
 const mapStateToProps = (state) => {
 	return {
-		userInfo: state.userInfo,
-		userId: state.userId
+		userInfo: state.userInfo, // userInfo store state
+		userId: state.userId // userId store state
 	};
 };
 

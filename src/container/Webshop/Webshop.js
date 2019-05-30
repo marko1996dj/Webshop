@@ -17,13 +17,14 @@ class Webshop extends Component {
 	}
 
 	onChangeType = (newType) => {
-		this.setState({ type: newType });
+		this.setState({ type: newType }); //sending type on change to CheckboxList
 	};
 
 	onPaginateNext = () => {
 		if (this.state.lastItem === 30) {
 		} else {
 			this.setState((prevState) => ({
+				// +6 to first and last item index to generate next 6 items
 				firstItem: prevState.firstItem + 6,
 				lastItem: prevState.lastItem + 6
 			}));
@@ -39,6 +40,7 @@ class Webshop extends Component {
 		if (this.state.firstItem === 0) {
 		} else {
 			this.setState((prevState) => ({
+				// -6 to first and last item index to generate previous 6 items
 				firstItem: prevState.firstItem - 6,
 				lastItem: prevState.lastItem - 6
 			}));
