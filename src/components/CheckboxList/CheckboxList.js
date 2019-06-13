@@ -40,6 +40,7 @@ class CheckboxList extends Component {
       borderRadius: '5px',
       padding: '10px',
       alignSelf: 'start',
+      maxWidth: '380px',
       flex: '1',
     };
     return (
