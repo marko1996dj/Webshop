@@ -42,7 +42,8 @@ class Register extends Component {
 					this.setState({ error: errorMessage });
 				});
 		} else {
-			this.setState({ error: 'Passwords do not match!' }); //if password do not match
+			//if password do not match
+			this.setState({ error: 'Passwords do not match!' }); 
 		}
 	}
 
@@ -100,6 +101,20 @@ class Register extends Component {
 				</form>
 			</React.Fragment>
 		);
+	}
+
+	componentDidMount() {
+		let regex = /[a-z]/g;
+		let password = "awdawda";
+		let passwordArray = password.match(regex);
+
+		if(passwordArray){
+			for(let i = 0; i < passwordArray.length; i++){
+				if(password.match(regex)){
+					console.log(password.match(regex));
+				}
+			}
+		}
 	}
 }
 

@@ -29,6 +29,8 @@ class Cart extends Component {
 					price={this.state.cartItems[cartKey].price}
 				/>
 			));
+		} else if(!this.props.isLoggedIn) {
+			storeItem = <h1 className={classes.Login}>Please log in to view your cart items</h1>
 		}
 
 		return (

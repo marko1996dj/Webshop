@@ -33,6 +33,7 @@ class CheckboxList extends Component {
 		this.props.onChange(this.state.type);
 	};
 
+
 	createCheckbox = (label) => <Checkbox label={label} handleCheckboxChange={this.toggleCheckbox} key={label} />; //handleCheckBoxChange  retrieves label that is selected
 
 	createCheckboxes = () => checkboxItems.map(this.createCheckbox);

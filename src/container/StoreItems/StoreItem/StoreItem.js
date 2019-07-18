@@ -73,7 +73,7 @@ class StoreItem extends Component {
 
 	render() {
 		return (
-			<div className={classes.Card + ' ' + 'card m-3'}>
+			<div className={classes.Card + ' card m-3'}>
 				<img className="card-img-top" src={this.props.imgUrl} alt={this.props.imgUrl} />
 				<div className="card-body">
 					<h5 className="card-title">{this.props.brand}</h5>
@@ -84,10 +84,10 @@ class StoreItem extends Component {
 						style={{ display: 'flex', justifyContent: 'space-between', marginTop: '30px' }}
 						className={classes.Buttons}
 					>
-						<p onClick={this.addToCart} className={classes.CartButton + ' ' + 'btn btn-success'}>
+						<p onClick={this.addToCart} className={classes.CartButton + ' btn btn-success'}>
 							<FontAwesomeIcon icon={faCartPlus} />
 						</p>
-						<p onClick={this.addToWishlist} className={classes.WishlistButton + ' ' + 'btn btn-danger'}>
+						<p onClick={this.addToWishlist} className={classes.WishlistButton +' btn btn-danger'}>
 							<FontAwesomeIcon icon={faHeart} />
 						</p>
 					</div>

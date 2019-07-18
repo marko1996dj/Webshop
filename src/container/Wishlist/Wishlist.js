@@ -6,7 +6,6 @@ import classes from './Wishlist.module.scss';
 import StoreItem from '../../components/StoreItem/StoreItem';
 
 import axios from '../../axios-orders';
-import config from '../../config/config';
 
 class Wishlist extends Component {
 	state = {
@@ -32,7 +31,10 @@ class Wishlist extends Component {
 					price={this.state.wishlistItems[wishlistKey].price}
 				/>
 			));
+		}else if(!this.props.isLoggedIn){
+			storeItem = <h1 className={classes.Login}>Please login to view your wishlist items.</h1>
 		}
+		
 
 		return (
 			<React.Fragment>
