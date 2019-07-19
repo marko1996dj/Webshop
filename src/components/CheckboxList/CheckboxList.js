@@ -1,58 +1,72 @@
 import React, { Component } from 'react';
 
-import Checkbox from './CheckboxItem/Checkbox';
 import Button from '../UI/Button/GeneralButton/Button';
 
-const checkboxItems = [ 'Shoes', 'Socks', 'Hoodies', 'Shorts', 'T-Shirts', 'Shirts', 'Jackets', 'Jeans', 'Underwear' ];
-
 class CheckboxList extends Component {
-	state = {
-		type: []
-	};
+  state = {
+    checkboxItems: [
+      'Shoes',
+      'Socks',
+      'Hoodies',
+      'Shorts',
+      'T-Shirts',
+      'Shirts',
+      'Jackets',
+      'Jeans',
+      'Underwear',
+    ],
+  };
 
-	componentWillMount = () => {
-		this.selectedCheckboxes = new Set();
-	};
+  handleFormSubmit = e => {
+    e.preventDefault();
+    // get all input items that have the are currently checked
+    const checkedList = Array.from(
+      document.querySelectorAll('.checkbox:checked')
+    ).map(checkbox => checkbox.value);
 
-	toggleCheckbox = (label) => {
-		let newStateType = this.state.type;
-		if (newStateType.includes(label)) {
-			for (let i = 0; newStateType.length >= i; i++) {
-				if (newStateType[i] === label) {
-					newStateType.splice(i, 1);
-				}
-			}
-		} else {
-			newStateType.push(label);
-			this.setState({ type: newStateType });
-		}
-	};
+    // if there are no items checked and we submit the form
+    // it's expected to return all items, meaning we dont
+    // want to filter anything.
+    if (checkedList.length === 0) {
+      this.props.onChange(this.state.checkboxItems);
+    } else {
+      this.props.onChange(checkedList);
+    }
+  };
 
-	handleFormSubmit = (formSubmitEvent) => {
-		formSubmitEvent.preventDefault();
-		this.props.onChange(this.state.type);
-	};
+  render() {
+    const style = {
+      border: '1px solid #dedede',
+      borderRadius: '5px',
+      padding: '10px',
+      alignSelf: 'start',
+      maxWidth: '380px',
+      flex: '1',
+    };
+    return (
+      <div style={style}>
+        <form
+          className="m-3"
+          style={{ display: 'flex', flexDirection: 'column' }}
+          onSubmit={this.handleFormSubmit}
+        >
+          {this.state.checkboxItems.map(item => (
+            <label key={item}>
+              <input
+                className="checkbox"
+                type="checkbox"
+                value={item}
+                style={{ marginRight: '5px' }}
+              />
+              {item}
+            </label>
+          ))}
 
-
-	createCheckbox = (label) => <Checkbox label={label} handleCheckboxChange={this.toggleCheckbox} key={label} />; //handleCheckBoxChange  retrieves label that is selected
-
-	createCheckboxes = () => checkboxItems.map(this.createCheckbox);
-
-	render() {
-		const style = {
-			border: '1px solid #dedede',
-			borderRadius: '5px',
-			maxHeight: '350px',
-			padding: '10px'
-		};
-		return (
-			<form className="m-3" style={style} onSubmit={this.handleFormSubmit}>
-				{this.createCheckboxes()}
-
-				<Button>Save</Button>
-			</form>
-		);
-	}
+          <Button>Save</Button>
+        </form>
+      </div>
+    );
+  }
 }
 
 export default CheckboxList;

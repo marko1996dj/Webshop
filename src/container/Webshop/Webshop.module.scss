@@ -3,12 +3,22 @@
 .Webshop {
 	display: flex;
 }
+
+.PaginateBtn {
+	padding: 0;
+	border: none;
+	outline: none;
+	font: inherit;
+	color: inherit;
+	background: none;
+	width: 70px;
+  }
+
 .Buttons {
 	display: flex;
 	justify-content: space-around;
 	color: #007aff;
 	font-size: 50px;
-	margin-left: 150px;
 	margin-bottom: 70px;
 	.Previous,
 	.Next {
@@ -22,7 +32,12 @@
 			cursor: grabbing;
 		}
 	}
+	.Disabled {
+		color: #007bff2f;
+	}
 }
+
+
 
 @include phone {
 	.Webshop {
