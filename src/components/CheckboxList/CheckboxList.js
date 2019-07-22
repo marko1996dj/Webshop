@@ -42,6 +42,7 @@ class CheckboxList extends Component {
       alignSelf: 'start',
       maxWidth: '380px',
       flex: '1',
+      marginTop: '15px'
     };
     return (
       <div style={style}>
